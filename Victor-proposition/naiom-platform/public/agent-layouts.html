@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>NAIOM · 4 layouts page agent + dashboard analytics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #0a1410;
+  --bg-soft: #122019;
+  --ink: #F5F1E8;
+  --ink-soft: #C2BDB0;
+  --ink-dim: #7A7568;
+  --accent: #E8461F;
+  --accent-hover: #F57444;
+  --pink: #F574AB;
+  --purple: #B464D3;
+  --emerald: #10B981;
+  --amber: #F59E0B;
+  --sky: #60A5FA;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Inter", -apple-system, sans-serif;
+  background: radial-gradient(ellipse at top left, #0f1f18 0%, #0a1410 50%, #060d0a 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 40px 0 80px;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(232, 70, 31, 0.18) 0%, transparent 35%),
+    radial-gradient(circle at 5% 50%, rgba(180, 100, 211, 0.12) 0%, transparent 35%),
+    radial-gradient(circle at 70% 95%, rgba(245, 116, 171, 0.1) 0%, transparent 35%);
+  filter: blur(40px);
+}
+.serif { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; letter-spacing: -0.025em; }
+
+/* ========== Page header ========== */
+.page-wrap { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+.page-title {
+  font-size: 48px; line-height: 1; letter-spacing: -0.035em;
+  font-family: "Instrument Serif", serif;
+}
+.page-sub { color: var(--ink-soft); margin-top: 10px; max-width: 720px; font-size: 15px; line-height: 1.6; }
+.tab-row {
+  display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap;
+}
+.tab-row a {
+  padding: 10px 18px; border-radius: 999px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 600;
+  backdrop-filter: blur(12px);
+  transition: all 0.2s;
+}
+.tab-row a:hover { background: rgba(255,255,255,0.1); }
+
+/* ========== Section wrapper (chaque option) ========== */
+.option-wrap { max-width: 1400px; margin: 80px auto 0; padding: 0 32px; }
+.option-head { display: flex; items-center: center; gap: 14px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px; }
+.option-num {
+  font-family: "Instrument Serif", serif; font-size: 48px; line-height: 1;
+  color: var(--accent); font-weight: 400;
+}
+.option-meta h2 { font-size: 28px; font-family: "Instrument Serif", serif; font-weight: 400; letter-spacing: -0.02em; }
+.option-meta p { color: var(--ink-soft); font-size: 14px; margin-top: 4px; max-width: 800px; }
+
+/* ========== Fake chrome browser ========== */
+.mock {
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(30px);
+  overflow: hidden;
+  box-shadow: 0 40px 100px -20px rgba(0,0,0,0.7);
+}
+.mock-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+.mock-dot.r { background: #FF5F57; }
+.mock-dot.y { background: #FEBC2E; }
+.mock-dot.g { background: #28C840; }
+.mock-url {
+  flex: 1; margin-left: 20px;
+  padding: 4px 12px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 999px;
+  font-size: 11px; color: var(--ink-dim);
+}
+.mock-body { padding: 24px; min-height: 600px; }
+
+/* ========== Glass cards ========== */
+.glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; }
+.glass-soft { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; }
+
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); font-size: 11px; font-weight: 600; letter-spacing: 0.02em; }
+.chip.accent { background: rgba(232,70,31,0.15); border-color: rgba(232,70,31,0.4); color: #FFB199; }
+.chip.emerald { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4); color: #6EE7B7; }
+.chip.amber { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.4); color: #FCD34D; }
+
+/* Fake avatar */
+.avatar {
+  background: linear-gradient(135deg, #FFB199, #E8461F);
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: "Instrument Serif", serif;
+  color: white;
+  font-size: 32px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* KPI card generic */
+.kpi {
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+}
+.kpi-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-dim); }
+.kpi-val { font-size: 28px; font-family: "Instrument Serif", serif; font-weight: 400; line-height: 1; margin-top: 6px; }
+.kpi-delta { font-size: 10px; font-weight: 600; color: var(--emerald); margin-top: 6px; }
+.kpi-delta.down { color: #F87171; }
+
+/* Spark bars */
+.spark { display: flex; align-items: flex-end; gap: 3px; height: 32px; margin-top: 8px; }
+.spark-bar {
+  flex: 1; background: linear-gradient(to top, rgba(232,70,31,0.9), rgba(232,70,31,0.4));
+  border-radius: 2px 2px 0 0;
+}
+
+/* Line chart SVG helper */
+.chart-svg { width: 100%; height: 120px; }
+
+/* ===================================================================
+   OPTION 1 — Classique : Hero + long scroll (actuel)
+   =================================================================== */
+.opt1-hero { display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; padding: 28px; }
+.opt1-avatar { width: 140px; height: 140px; }
+.opt1-title { font-size: 44px; font-family: "Instrument Serif", serif; font-weight: 400; letter-spacing: -0.025em; line-height: 1; }
+.opt1-kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; }
+.opt1-section { margin-top: 24px; padding: 24px; }
+.opt1-chat-placeholder { height: 280px; background: rgba(0,0,0,0.2); border-radius: 14px; border: 1px dashed rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--ink-dim); font-size: 13px; }
+
+/* ===================================================================
+   OPTION 2 — Split 60/40 : Chat à gauche fixe, analytics à droite
+   =================================================================== */
+.opt2-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; }
+.opt2-chat { padding: 20px; min-height: 560px; display: flex; flex-direction: column; }
+.opt2-chat-header { display: flex; align-items: center; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.opt2-chat-main { flex: 1; padding: 20px 0; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+.opt2-msg { padding: 10px 14px; border-radius: 14px; max-width: 80%; font-size: 13px; }
+.opt2-msg.user { align-self: flex-end; background: var(--accent); color: white; }
+.opt2-msg.agent { align-self: flex-start; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
+.opt2-input { padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; font-size: 12px; color: var(--ink-dim); }
+.opt2-sidepanel { display: flex; flex-direction: column; gap: 14px; }
+.opt2-widget { padding: 18px 20px; }
+.opt2-widget h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-dim); margin-bottom: 12px; }
+
+/* ===================================================================
+   OPTION 3 — Bento analytics dashboard-first
+   =================================================================== */
+.opt3-head { display: flex; align-items: center; gap: 20px; padding: 20px 24px; }
+.opt3-bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: auto auto; gap: 14px; padding: 0 24px 24px; }
+.opt3-cell { padding: 18px; }
+.opt3-cell.big { grid-column: span 3; grid-row: span 2; }
+.opt3-cell.med { grid-column: span 2; }
+.opt3-cell.sm { grid-column: span 2; }
+.opt3-cell.xl { grid-column: span 3; }
+.opt3-cell.chat { grid-column: span 6; min-height: 220px; padding: 16px; }
+
+/* ===================================================================
+   OPTION 4 — Tabs : hero compact + 4 tabs (Chat / Analytics / Fichiers / Historique)
+   =================================================================== */
+.opt4-header { padding: 22px 24px; display: flex; align-items: center; gap: 20px; }
+.opt4-avatar-sm { width: 64px; height: 64px; font-size: 22px; }
+.opt4-info { flex: 1; }
+.opt4-title { font-size: 26px; font-family: "Instrument Serif", serif; letter-spacing: -0.02em; }
+.opt4-info p { font-size: 12px; color: var(--ink-dim); margin-top: 2px; }
+.opt4-kpi-strip { display: flex; gap: 20px; padding-left: 20px; border-left: 1px solid rgba(255,255,255,0.1); }
+.opt4-kpi-strip .k-val { font-size: 24px; font-family: "Instrument Serif", serif; line-height: 1; }
+.opt4-kpi-strip .k-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-dim); margin-top: 3px; }
+.opt4-tabs { display: flex; gap: 4px; padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.opt4-tab { padding: 10px 16px; font-size: 12px; font-weight: 600; color: var(--ink-soft); border-bottom: 2px solid transparent; cursor: pointer; }
+.opt4-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.opt4-content { padding: 24px; min-height: 380px; }
+.opt4-grid-analytics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.opt4-big-chart { grid-column: span 4; padding: 20px; margin-top: 14px; }
+
+/* Footer */
+footer {
+  max-width: 1400px; margin: 80px auto 0;
+  padding: 24px 32px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex; justify-content: space-between; color: var(--ink-dim);
+  font-size: 12px;
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="chip" style="display:inline-flex; margin-bottom:20px;">
+    <span style="width:6px; height:6px; background:var(--accent); border-radius:50%;"></span>
+    NAIOM — Layout exploration
+  </div>
+  <h1 class="page-title">4 layouts page agent.<br/><em style="color:var(--accent); font-style:italic;">Lequel tu sens ?</em></h1>
+  <p class="page-sub">Même contenu (chat, analytics, livrables, activité) — 4 dispositions différentes. En bonus, un <strong style="color:var(--ink);">vrai dashboard analytics</strong> avec tokens consommés, coût, uptime, graphs. Scrolle pour voir les 4 options, puis dis-moi laquelle tu préfères.</p>
+  <div class="tab-row">
+    <a href="#opt1">01 · Hero + long scroll</a>
+    <a href="#opt2">02 · Split 60/40</a>
+    <a href="#opt3">03 · Bento analytics</a>
+    <a href="#opt4">04 · Header + tabs</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     OPTION 1 — Hero classique long scroll
+     ============================================================ -->
+<section class="option-wrap" id="opt1">
+  <div class="option-head">
+    <div class="option-num">01</div>
+    <div class="option-meta">
+      <h2>Hero + long scroll</h2>
+      <p>Layout actuel amélioré. Grand hero avec avatar + KPI principaux visibles immédiatement, puis sections empilées (chat, analytics, livrables). Lisible, éditorial, mais il faut scroller pour voir le chat.</p>
+    </div>
+  </div>
+  <div class="mock">
+    <div class="mock-bar">
+      <span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span>
+      <span class="mock-url">localhost:3001/agents/gmail</span>
+    </div>
+    <div class="mock-body">
+      <div class="chip" style="margin-bottom: 16px;">
+        <span style="width:5px;height:5px;background:var(--emerald);border-radius:50%;"></span>
+        Actif · claude-sonnet-4-6
+      </div>
+      <div class="glass opt1-hero">
+        <div class="avatar opt1-avatar">G</div>
+        <div>
+          <h1 class="opt1-title">Agent Gmail</h1>
+          <p style="color:var(--ink-soft); margin-top:10px; font-size:14px; max-width:520px;">Tri des emails, détection d'urgences, rédaction de réponses. Dashboard maître-détail.</p>
+          <div class="opt1-kpi-row">
+            <div class="kpi"><div class="kpi-label">Livrables</div><div class="kpi-val">12</div><div class="kpi-delta">+3 cette semaine</div></div>
+            <div class="kpi"><div class="kpi-label">Tokens · 30j</div><div class="kpi-val">1,4 M</div><div class="kpi-delta">+22 %</div></div>
+            <div class="kpi"><div class="kpi-label">Coût · 30j</div><div class="kpi-val">$ 4,23</div><div class="kpi-delta down">+$0.80</div></div>
+            <div class="kpi"><div class="kpi-label">Latence moy.</div><div class="kpi-val">3,8 s</div><div class="kpi-delta">-0.4 s</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="glass opt1-section">
+        <h3 style="font-family:'Instrument Serif',serif; font-size:22px; letter-spacing:-0.02em; margin-bottom:16px;">Chat avec l'agent</h3>
+        <div class="opt1-chat-placeholder">— conversation live de l'agent (placeholder) —</div>
+      </div>
+      <div class="glass opt1-section">
+        <h3 style="font-family:'Instrument Serif',serif; font-size:22px; letter-spacing:-0.02em; margin-bottom:16px;">Livrables</h3>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+          <div class="glass-soft" style="padding:14px;"><div style="font-size:12px;font-weight:700;">Tri inbox 21 avril</div><div style="font-size:10px;color:var(--ink-dim);margin-top:4px;">12 kB · il y a 2h</div></div>
+          <div class="glass-soft" style="padding:14px;"><div style="font-size:12px;font-weight:700;">Drafts J+1</div><div style="font-size:10px;color:var(--ink-dim);margin-top:4px;">8 kB · hier</div></div>
+          <div class="glass-soft" style="padding:14px;"><div style="font-size:12px;font-weight:700;">Plan relance Q2</div><div style="font-size:10px;color:var(--ink-dim);margin-top:4px;">23 kB · 3j</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     OPTION 2 — Split 60/40 chat + analytics side
+     ============================================================ -->
+<section class="option-wrap" id="opt2">
+  <div class="option-head">
+    <div class="option-num">02</div>
+    <div class="option-meta">
+      <h2>Split 60 / 40 · Chat + Analytics</h2>
+      <p>Chat à gauche toujours visible (60%), panneau analytics à droite (40%) avec stats temps réel, widgets consommation, todo, derniers livrables. Pas de scroll pour les stats, chat plein écran.</p>
+    </div>
+  </div>
+  <div class="mock">
+    <div class="mock-bar">
+      <span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span>
+      <span class="mock-url">localhost:3001/agents/gmail</span>
+    </div>
+    <div class="mock-body">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
+        <div class="avatar" style="width:56px;height:56px;font-size:20px;">G</div>
+        <div style="flex:1;">
+          <h1 style="font-family:'Instrument Serif',serif; font-size:32px; letter-spacing:-0.02em;">Agent Gmail</h1>
+          <p style="color:var(--ink-dim); font-size:12px; margin-top:2px;">Tri inbox · prospects chauds · drafts</p>
+        </div>
+        <span class="chip accent">● En ligne</span>
+      </div>
+
+      <div class="opt2-grid">
+        <!-- CHAT gauche -->
+        <div class="glass opt2-chat">
+          <div class="opt2-chat-header">
+            <div class="avatar" style="width:36px;height:36px;font-size:14px;">G</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;">Conversation</div>
+              <div style="font-size:10px;color:var(--ink-dim);">Reprise J-0 · 4 messages</div>
+            </div>
+            <span class="chip" style="margin-left:auto;">4 messages</span>
+          </div>
+          <div class="opt2-chat-main">
+            <div class="opt2-msg user">Donne-moi la to-do du jour prio urgents.</div>
+            <div class="opt2-msg agent">J'ai 3 urgents : Jean Dupont (Acme Corp), Marie Durand (Beta Inc), et Luc Clément. Je prépare le dashboard.</div>
+            <div class="opt2-msg user">Rédige la réponse pour Jean.</div>
+            <div class="opt2-msg agent">Voici le draft avec 3 variantes de ton. À valider avant envoi.</div>
+          </div>
+          <div class="opt2-input">Demandez à l'agent Gmail…  <span style="float:right; color:var(--ink-dim);">↵</span></div>
+        </div>
+        <!-- Analytics droite -->
+        <div class="opt2-sidepanel">
+          <div class="glass opt2-widget">
+            <h4>Activité 7 jours</h4>
+            <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:10px;">
+              <div style="font-size:36px; font-family:'Instrument Serif',serif;">47</div>
+              <div style="font-size:11px; color:var(--emerald);">+18 vs sem. précédente</div>
+            </div>
+            <div class="spark">
+              <div class="spark-bar" style="height:30%"></div>
+              <div class="spark-bar" style="height:60%"></div>
+              <div class="spark-bar" style="height:45%"></div>
+              <div class="spark-bar" style="height:80%"></div>
+              <div class="spark-bar" style="height:55%"></div>
+              <div class="spark-bar" style="height:95%"></div>
+              <div class="spark-bar" style="height:70%"></div>
+            </div>
+          </div>
+          <div class="glass opt2-widget">
+            <h4>Consommation</h4>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div><div style="font-size:22px; font-family:'Instrument Serif',serif;">1,4 M</div><div style="font-size:9px; text-transform:uppercase; color:var(--ink-dim); letter-spacing:0.14em;">Tokens · 30j</div></div>
+              <div><div style="font-size:22px; font-family:'Instrument Serif',serif;">$ 4,23</div><div style="font-size:9px; text-transform:uppercase; color:var(--ink-dim); letter-spacing:0.14em;">Coût · 30j</div></div>
+            </div>
+            <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; font-size:11px;">
+              <span style="color:var(--ink-dim);">Budget mensuel</span><span style="color:var(--accent);">$4.23 / $20</span>
+            </div>
+            <div style="margin-top:6px; height:4px; background:rgba(255,255,255,0.08); border-radius:999px; overflow:hidden;"><div style="width:21%; height:100%; background:var(--accent);"></div></div>
+          </div>
+          <div class="glass opt2-widget">
+            <h4>Derniers livrables</h4>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; font-size:12px;"><span>Tri inbox 21/04</span><span style="color:var(--ink-dim); font-size:10px;">il y a 2h</span></div>
+              <div style="display:flex; justify-content:space-between; font-size:12px;"><span>Drafts J+1</span><span style="color:var(--ink-dim); font-size:10px;">hier</span></div>
+              <div style="display:flex; justify-content:space-between; font-size:12px;"><span>Plan relance Q2</span><span style="color:var(--ink-dim); font-size:10px;">3j</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     OPTION 3 — Bento analytics (dashboard-first)
+     ============================================================ -->
+<section class="option-wrap" id="opt3">
+  <div class="option-head">
+    <div class="option-num">03</div>
+    <div class="option-meta">
+      <h2>Bento analytics · dashboard-first</h2>
+      <p>Grille bento dense, chaque card = une métrique ou un module. Le chat descend dans une card large en bas. Idéal si tu passes plus de temps à consulter les stats qu'à discuter. Très "command center".</p>
+    </div>
+  </div>
+  <div class="mock">
+    <div class="mock-bar">
+      <span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span>
+      <span class="mock-url">localhost:3001/agents/gmail</span>
+    </div>
+    <div style="background:rgba(255,255,255,0.02);">
+      <div class="opt3-head">
+        <div class="avatar" style="width:80px;height:80px;font-size:28px;">G</div>
+        <div style="flex:1;">
+          <h1 style="font-family:'Instrument Serif',serif; font-size:36px; letter-spacing:-0.025em;">Agent Gmail</h1>
+          <p style="color:var(--ink-dim); font-size:12px; margin-top:4px;">Tri emails · détection urgences · rédaction drafts</p>
+        </div>
+        <span class="chip emerald">● Actif</span>
+        <span class="chip">claude-sonnet-4-6</span>
+      </div>
+      <div class="opt3-bento">
+        <!-- Big chart — tokens usage -->
+        <div class="glass opt3-cell big">
+          <h4 style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.14em; color:var(--ink-dim); margin-bottom:12px;">Consommation 30j</h4>
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:16px;">
+            <div><div style="font-size:48px; font-family:'Instrument Serif',serif; line-height:1;">1,4 M</div><div style="font-size:11px; color:var(--ink-dim); margin-top:4px;">tokens consommés</div></div>
+            <div style="text-align:right;"><div style="font-size:24px; font-family:'Instrument Serif',serif; color:var(--accent);">$ 4,23</div><div style="font-size:10px; color:var(--emerald);">+18 % vs M-1</div></div>
+          </div>
+          <svg class="chart-svg" viewBox="0 0 400 120">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#E8461F" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#E8461F" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M 0 80 L 30 70 L 60 75 L 90 60 L 120 55 L 150 65 L 180 45 L 210 50 L 240 35 L 270 40 L 300 25 L 330 30 L 360 15 L 400 20 L 400 120 L 0 120 Z" fill="url(#g1)"/>
+            <path d="M 0 80 L 30 70 L 60 75 L 90 60 L 120 55 L 150 65 L 180 45 L 210 50 L 240 35 L 270 40 L 300 25 L 330 30 L 360 15 L 400 20" stroke="#E8461F" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div style="display:flex; justify-content:space-between; font-size:9px; color:var(--ink-dim); margin-top:4px;">
+            <span>22 mars</span><span>1 avr</span><span>10 avr</span><span>21 avr</span>
+          </div>
+        </div>
+        <!-- KPI cells -->
+        <div class="glass opt3-cell med">
+          <div class="kpi-label">Livrables · 30j</div>
+          <div style="font-size:36px; font-family:'Instrument Serif',serif; line-height:1; margin-top:8px;">12</div>
+          <div style="font-size:11px; color:var(--emerald); margin-top:4px;">+3 cette sem.</div>
+        </div>
+        <div class="glass opt3-cell med">
+          <div class="kpi-label">Latence moy.</div>
+          <div style="font-size:36px; font-family:'Instrument Serif',serif; line-height:1; margin-top:8px;">3,8 s</div>
+          <div style="font-size:11px; color:var(--emerald); margin-top:4px;">-0.4 s vs M-1</div>
+        </div>
+        <div class="glass opt3-cell med">
+          <div class="kpi-label">Taux succès</div>
+          <div style="font-size:36px; font-family:'Instrument Serif',serif; line-height:1; margin-top:8px; color:var(--emerald);">97 %</div>
+          <div style="font-size:11px; color:var(--ink-dim); margin-top:4px;">98/101 requêtes</div>
+        </div>
+        <div class="glass opt3-cell med">
+          <div class="kpi-label">Uptime</div>
+          <div style="font-size:36px; font-family:'Instrument Serif',serif; line-height:1; margin-top:8px;">99,9 %</div>
+          <div style="font-size:11px; color:var(--ink-dim); margin-top:4px;">1 incident · 30j</div>
+        </div>
+        <!-- Chat full width en bas -->
+        <div class="glass opt3-cell chat">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <h4 style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.14em;">Chat · demandez ce que vous voulez</h4>
+            <span class="chip" style="margin-left:auto;">Clear conv</span>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px;">
+            <div class="glass-soft" style="padding:12px; font-size:12px;">"Ma to-do du jour"</div>
+            <div class="glass-soft" style="padding:12px; font-size:12px;">"Réponse pour Jean Dupont"</div>
+            <div class="glass-soft" style="padding:12px; font-size:12px;">"Prospects chauds à relancer"</div>
+          </div>
+          <div class="opt2-input">Demandez à l'agent Gmail… <span style="float:right;">↵</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     OPTION 4 — Header compact + tabs
+     ============================================================ -->
+<section class="option-wrap" id="opt4">
+  <div class="option-head">
+    <div class="option-num">04</div>
+    <div class="option-meta">
+      <h2>Header compact + tabs</h2>
+      <p>Header horizontal réduit avec KPI inline à droite de l'avatar. Puis 4 tabs (Chat · Analytics · Fichiers · Activité) — un seul écran visible à la fois. Très app-like, dense, pour usage quotidien intensif.</p>
+    </div>
+  </div>
+  <div class="mock">
+    <div class="mock-bar">
+      <span class="mock-dot r"></span><span class="mock-dot y"></span><span class="mock-dot g"></span>
+      <span class="mock-url">localhost:3001/agents/gmail</span>
+    </div>
+    <div>
+      <div class="glass opt4-header" style="border-radius:0; border-top:none; border-left:none; border-right:none;">
+        <div class="avatar opt4-avatar-sm">G</div>
+        <div class="opt4-info">
+          <div class="opt4-title">Agent Gmail</div>
+          <p>Tri inbox · détection urgences · rédaction drafts</p>
+        </div>
+        <div class="opt4-kpi-strip">
+          <div><div class="k-val">12</div><div class="k-lbl">Livrables</div></div>
+          <div><div class="k-val">1,4M</div><div class="k-lbl">Tokens · 30j</div></div>
+          <div><div class="k-val">$4.23</div><div class="k-lbl">Coût · 30j</div></div>
+          <div><div class="k-val" style="color:var(--emerald)">97%</div><div class="k-lbl">Succès</div></div>
+        </div>
+        <span class="chip emerald">● En ligne</span>
+      </div>
+
+      <div class="opt4-tabs">
+        <div class="opt4-tab">Chat</div>
+        <div class="opt4-tab active">Analytics</div>
+        <div class="opt4-tab">Fichiers (12)</div>
+        <div class="opt4-tab">Historique</div>
+      </div>
+
+      <div class="opt4-content">
+        <div class="opt4-grid-analytics">
+          <div class="glass" style="padding:18px;">
+            <div class="kpi-label">Tokens · input</div>
+            <div style="font-size:28px; font-family:'Instrument Serif',serif; margin-top:8px;">892 K</div>
+            <div style="font-size:10px; color:var(--ink-dim); margin-top:4px;">prompts + contexte</div>
+          </div>
+          <div class="glass" style="padding:18px;">
+            <div class="kpi-label">Tokens · output</div>
+            <div style="font-size:28px; font-family:'Instrument Serif',serif; margin-top:8px;">478 K</div>
+            <div style="font-size:10px; color:var(--ink-dim); margin-top:4px;">réponses</div>
+          </div>
+          <div class="glass" style="padding:18px;">
+            <div class="kpi-label">Cache hits</div>
+            <div style="font-size:28px; font-family:'Instrument Serif',serif; margin-top:8px; color:var(--emerald);">62 %</div>
+            <div style="font-size:10px; color:var(--ink-dim); margin-top:4px;">économie $1.40</div>
+          </div>
+          <div class="glass" style="padding:18px;">
+            <div class="kpi-label">Appels tool use</div>
+            <div style="font-size:28px; font-family:'Instrument Serif',serif; margin-top:8px;">34</div>
+            <div style="font-size:10px; color:var(--ink-dim); margin-top:4px;">web_search · fetch</div>
+          </div>
+        </div>
+        <div class="glass opt4-big-chart">
+          <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+            <h4 style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.14em; color:var(--ink-dim);">Tokens consommés · jour</h4>
+            <div style="display:flex; gap:10px; font-size:10px;">
+              <span><span style="display:inline-block; width:10px; height:10px; border-radius:3px; background:var(--accent); margin-right:4px; vertical-align:middle;"></span>Input</span>
+              <span><span style="display:inline-block; width:10px; height:10px; border-radius:3px; background:#F57444; margin-right:4px; vertical-align:middle;"></span>Output</span>
+            </div>
+          </div>
+          <svg viewBox="0 0 600 180" style="width:100%; height:180px;">
+            <!-- Grid -->
+            <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+              <line x1="0" y1="45" x2="600" y2="45"/>
+              <line x1="0" y1="90" x2="600" y2="90"/>
+              <line x1="0" y1="135" x2="600" y2="135"/>
+            </g>
+            <!-- Bars -->
+            <g>
+              <rect x="20" y="100" width="14" height="60" fill="#E8461F" rx="2"/>
+              <rect x="36" y="120" width="14" height="40" fill="#F57444" rx="2"/>
+              <rect x="70" y="80" width="14" height="80" fill="#E8461F" rx="2"/>
+              <rect x="86" y="105" width="14" height="55" fill="#F57444" rx="2"/>
+              <rect x="120" y="60" width="14" height="100" fill="#E8461F" rx="2"/>
+              <rect x="136" y="90" width="14" height="70" fill="#F57444" rx="2"/>
+              <rect x="170" y="70" width="14" height="90" fill="#E8461F" rx="2"/>
+              <rect x="186" y="100" width="14" height="60" fill="#F57444" rx="2"/>
+              <rect x="220" y="50" width="14" height="110" fill="#E8461F" rx="2"/>
+              <rect x="236" y="85" width="14" height="75" fill="#F57444" rx="2"/>
+              <rect x="270" y="40" width="14" height="120" fill="#E8461F" rx="2"/>
+              <rect x="286" y="75" width="14" height="85" fill="#F57444" rx="2"/>
+              <rect x="320" y="45" width="14" height="115" fill="#E8461F" rx="2"/>
+              <rect x="336" y="80" width="14" height="80" fill="#F57444" rx="2"/>
+              <rect x="370" y="35" width="14" height="125" fill="#E8461F" rx="2"/>
+              <rect x="386" y="70" width="14" height="90" fill="#F57444" rx="2"/>
+              <rect x="420" y="25" width="14" height="135" fill="#E8461F" rx="2"/>
+              <rect x="436" y="65" width="14" height="95" fill="#F57444" rx="2"/>
+              <rect x="470" y="30" width="14" height="130" fill="#E8461F" rx="2"/>
+              <rect x="486" y="60" width="14" height="100" fill="#F57444" rx="2"/>
+              <rect x="520" y="20" width="14" height="140" fill="#E8461F" rx="2"/>
+              <rect x="536" y="55" width="14" height="105" fill="#F57444" rx="2"/>
+              <rect x="570" y="15" width="14" height="145" fill="#E8461F" rx="2"/>
+              <rect x="586" y="50" width="14" height="110" fill="#F57444" rx="2"/>
+            </g>
+          </svg>
+          <div style="display:flex; justify-content:space-between; font-size:9px; color:var(--ink-dim); margin-top:6px;">
+            <span>10 avr</span><span>13 avr</span><span>16 avr</span><span>19 avr</span><span>21 avr</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Dashboard analytics détail (la section qu'elle demande explicitement)
+     ============================================================ -->
+<section class="option-wrap">
+  <div class="option-head">
+    <div class="option-num" style="color:var(--purple);">★</div>
+    <div class="option-meta">
+      <h2>Ce qu'on mesure dans chaque dashboard agent</h2>
+      <p>Peu importe le layout choisi, chaque agent aura ces métriques suivies. Aperçu de ce qui va être tracké et affiché.</p>
+    </div>
+  </div>
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+    <div class="glass" style="padding:20px;">
+      <div class="chip accent" style="margin-bottom:12px;">Consommation</div>
+      <ul style="list-style:none; font-size:13px; line-height:1.9; color:var(--ink-soft);">
+        <li>— Tokens input / output (live)</li>
+        <li>— Coût USD par jour / 7j / 30j</li>
+        <li>— Budget mensuel vs dépensé (barre)</li>
+        <li>— Cache hits & économie</li>
+        <li>— Appels tool (web_search, web_fetch)</li>
+      </ul>
+    </div>
+    <div class="glass" style="padding:20px;">
+      <div class="chip emerald" style="margin-bottom:12px;">Performance</div>
+      <ul style="list-style:none; font-size:13px; line-height:1.9; color:var(--ink-soft);">
+        <li>— Latence moyenne réponse</li>
+        <li>— Taux de succès (vs erreurs)</li>
+        <li>— Uptime (incidents / 30j)</li>
+        <li>— Nb conversations actives</li>
+        <li>— Nb messages total</li>
+      </ul>
+    </div>
+    <div class="glass" style="padding:20px;">
+      <div class="chip amber" style="margin-bottom:12px;">Production</div>
+      <ul style="list-style:none; font-size:13px; line-height:1.9; color:var(--ink-soft);">
+        <li>— Livrables produits (count)</li>
+        <li>— Top formats (deck, post, email…)</li>
+        <li>— Dernière activité (timestamp)</li>
+        <li>— Livrables validés vs drafts</li>
+        <li>— Historique conversations 7j</li>
+      </ul>
+    </div>
+  </div>
+  <div class="glass" style="padding:24px; margin-top:20px; background:rgba(232,70,31,0.06); border-color:rgba(232,70,31,0.2);">
+    <div style="display:flex; align-items:start; gap:16px;">
+      <div style="flex-shrink:0; width:40px; height:40px; border-radius:12px; background:var(--accent); display:flex; align-items:center; justify-content:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div>
+        <h4 style="font-size:14px; font-weight:700;">Où on lit les métriques ?</h4>
+        <p style="font-size:12px; color:var(--ink-soft); margin-top:6px; line-height:1.6;">
+          <strong style="color:var(--ink);">Tokens + coût</strong> : API Anthropic Admin (usage endpoints) ou tracking local via le SDK.
+          <strong style="color:var(--ink);">Latence + succès</strong> : telemetry ajoutée dans /api/chat.
+          <strong style="color:var(--ink);">Livrables</strong> : scan du dossier agent.
+          <strong style="color:var(--ink);">Conversations</strong> : localStorage (aujourd'hui) ou base serverless (à ajouter).
+          Je peux tout brancher en vrai une fois que tu valides un layout.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>NAIOM · 4 propositions layout page agent · 21 avril 2026</div>
+  <div>Dis-moi l'option retenue (1, 2, 3, 4) + si tu veux mixer.</div>
+</footer>
+
+</body>
+</html>
