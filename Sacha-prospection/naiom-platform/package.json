@@ -8,9 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^3.0.71",
-    "@ai-sdk/react": "^3.0.170",
-    "ai": "^6.0.168",
+    "@ai-sdk/anthropic": "^4.0.53",
+    "@ai-sdk/google": "^4.0.70",
+    "@ai-sdk/react": "^4.0.104",
+    "ai": "^7.0.101",
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
     "lucide-react": "^1.8.0",

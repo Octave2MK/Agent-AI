@@ -1,0 +1,8 @@
+{"timestamp":"2026-09-15T11:05:31.907Z","agentSlug":"prospection","model":"gemini-3.8-flash","inputTokens":0,"outputTokens":0,"cacheReadTokens":0,"cacheCreationTokens":0,"latencyMs":4655,"success":false,"toolCalls":0}
+{"timestamp":"2026-09-15T11:06:50.546Z","agentSlug":"prospection","model":"gemini-3.8-flash","inputTokens":0,"outputTokens":0,"cacheReadTokens":0,"cacheCreationTokens":0,"latencyMs":773,"success":false,"toolCalls":0}
+{"timestamp":"2026-09-15T11:07:36.284Z","agentSlug":"prospection","model":"gemini-3.8-flash","inputTokens":0,"outputTokens":0,"cacheReadTokens":0,"cacheCreationTokens":0,"latencyMs":632,"success":false,"toolCalls":0}
+{"timestamp":"2026-09-15T11:08:34.143Z","agentSlug":"prospection","model":"gemini-3.8-flash","inputTokens":0,"outputTokens":0,"cacheReadTokens":0,"cacheCreationTokens":0,"latencyMs":633,"success":false,"toolCalls":0}
+{"timestamp":"2026-09-15T11:14:07.984Z","agentSlug":"prospection","model":"gemini-3.8-flash","inputTokens":0,"outputTokens":0,"cacheReadTokens":0,"cacheCreationTokens":0,"latencyMs":722,"success":false,"toolCalls":0}
+{"timestamp":"2026-09-15T11:14:27.837Z","agentSlug":"prospection","model":"gemini-3.8-flash","inputTokens":0,"outputTokens":0,"cacheReadTokens":0,"cacheCreationTokens":0,"latencyMs":631,"success":false,"toolCalls":0}
+{"timestamp":"2026-09-15T11:27:31.807Z","agentSlug":"prospection","model":"gemini-3.8-flash","inputTokens":0,"outputTokens":0,"cacheReadTokens":0,"cacheCreationTokens":0,"latencyMs":30326,"success":false,"toolCalls":0}
+{"timestamp":"2026-09-15T11:32:36.387Z","agentSlug":"prospection","model":"gemini-3.6-flash","inputTokens":830,"outputTokens":1693,"cacheReadTokens":0,"cacheCreationTokens":0,"latencyMs":11325,"success":true,"toolCalls":0}

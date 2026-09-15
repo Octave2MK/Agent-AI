@@ -156,7 +156,7 @@ function cover(s: T1Slide, ctx: Ctx, logos: Logo[]): string {
 }
 
 function flow(s: T1Slide, ctx: Ctx): string {
-  const steps = A<{ icon?: string; label: string }>(s.steps);
+  const steps = A<{ icon?: string; label: string; desc?: string }>(s.steps);
   const vertical = steps.length > 3;
   const nodes = steps.map((st, k) => `
     <div class="fnode">${ic(ctx, st.icon, "#fff", ORANGE, 72)}<div class="ftext"><div class="flab">${esc(st.label)}</div>${st.desc ? `<div class="fdesc">${esc(st.desc)}</div>` : ""}</div></div>

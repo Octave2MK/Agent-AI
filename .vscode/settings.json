@@ -1,0 +1,6 @@
+{
+    "compareFolders.excludeFilter": [
+        "/.claude\\agents\\veille.md",
+        "/Sacha-prospection"
+    ]
+}

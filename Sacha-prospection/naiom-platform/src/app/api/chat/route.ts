@@ -1,5 +1,6 @@
 import { convertToModelMessages, isToolUIPart, stepCountIs, streamText, type UIMessage } from "ai";
 import { createAnthropic } from "@ai-sdk/anthropic";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { getAgentBySlug } from "@/lib/agents";
 import { buildMockResponse } from "@/lib/mockStream";
 import { renderInbox, renderMeetings, renderCandidatesFull, renderYouTube, renderDrive } from "@/lib/dataSources";
@@ -101,7 +102,7 @@ Tu disposes de deux outils natifs Anthropic :
 5. **Contenu visuel (palette, typo d'un site)** : décris textuellement les couleurs dominantes (ex. "bleu nuit #1a2b3c, accent corail") que le Designer pourra reprendre. Tu n'as pas accès aux images.
 `;
 
-async function hydrateSystemPrompt(agentSlug: string, systemPrompt: string): Promise<string> {
+async function hydrateSystemPrompt(agentSlug: string, systemPrompt: string, provider: "anthropic" | "gemini"): Promise<string> {
   let hydrated = systemPrompt;
 
   if (agentSlug === "gmail" || agentSlug === "orchestrateur") {
@@ -142,7 +143,9 @@ async function hydrateSystemPrompt(agentSlug: string, systemPrompt: string): Pro
   if (DECK_AGENTS.has(agentSlug)) {
     result += DECK_LISIBILITE_RULE;
   }
-  result += WEB_ACCESS_INSTRUCTION;
+  if (provider === "anthropic") {
+    result += WEB_ACCESS_INSTRUCTION;
+  }
   if (CREATE_CAPABLE.has(agentSlug)) {
     result += PLAN_INSTRUCTION;
   }
@@ -185,30 +188,65 @@ export async function POST(req: Request) {
     return new Response(`Unknown agent "${agentSlug}"`, { status: 404 });
   }
 
-  const useMock = process.env.DEMO_MOCK === "1" || !process.env.ANTHROPIC_API_KEY;
+  const provider: "anthropic" | "gemini" =
+    process.env.AI_PROVIDER === "gemini" ? "gemini" : "anthropic";
+
+  const providerApiKey =
+    provider === "gemini"
+      ? process.env.GEMINI_API_KEY
+      : process.env.ANTHROPIC_API_KEY;
+
+  const useMock =
+    process.env.DEMO_MOCK === "1" || !providerApiKey;
+
   if (useMock) {
     return buildMockResponse(agentSlug, sanitizedMessages);
   }
 
   const baseSystem =
     agent.systemPrompt || `Tu es ${agent.name}. Sois bref, en français, et utile.`;
-  const systemPrompt = await hydrateSystemPrompt(agentSlug, baseSystem);
+  const systemPrompt = await hydrateSystemPrompt(
+    agentSlug,
+    baseSystem,
+    provider
+  );
 
-  const anthropic = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
+  const anthropic =
+    provider === "anthropic"
+      ? createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
+      : null;
+
+  const google =
+    provider === "gemini"
+      ? createGoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY! })
+      : null;
+
   const startTime = Date.now();
-  // Modèle selon la puissance de l'agent (badge opus/sonnet de sa fiche).
-  const modelId = /opus/i.test(agent.model) ? "claude-opus-5" : "claude-sonnet-5";
+
+  const modelId =
+    provider === "gemini"
+      ? "gemini-3.6-flash"
+      : /opus/i.test(agent.model)
+        ? "claude-opus-5"
+        : "claude-sonnet-5";
 
   // Prompt caching Anthropic (TTL ~5min) — pose un cache_control ephemeral sur
   // le system pour que les tours successifs réutilisent la cache au lieu de
   // re-facturer 6-8K tokens d'input à chaque appel. Évite le rate limit ITPM 30K.
-  const cachedSystemMessage = {
-    role: "system" as const,
-    content: systemPrompt,
-    providerOptions: {
-      anthropic: { cacheControl: { type: "ephemeral" as const } },
-    },
-  };
+  const systemMessage =
+    provider === "anthropic"
+      ? {
+          role: "system" as const,
+          content: systemPrompt,
+          providerOptions: {
+            anthropic: {
+              cacheControl: {
+                type: "ephemeral" as const,
+              },
+            },
+          },
+        }
+      : null;
   const modelMessages = await convertToModelMessages(sanitizedMessages);
 
   // Web search/fetch : budget réduit de 5→2 pour éviter que les résultats injectés
@@ -216,25 +254,54 @@ export async function POST(req: Request) {
   const webBudget = agentSlug === "analyste" ? 2 : 3;
 
   const result = streamText({
-    model: anthropic(modelId),
-    messages: [cachedSystemMessage, ...modelMessages],
-    maxOutputTokens: 24000, // évite les réponses coupées (finishReason "length") — Opus 5 pense + rédige long
+    model: 
+      provider === "gemini"
+        ? google!("gemini-3.8-flash")
+        : anthropic!(modelId),
+
+    ...(provider === "gemini"
+      ? {
+          instructions: systemPrompt,
+          messages: modelMessages,
+        }
+      : {
+          messages: [systemMessage!, ...modelMessages],
+        }),
+
+    maxOutputTokens: 24000,
     maxRetries: 2,
-    tools: {
-      web_search: anthropic.tools.webSearch_20260209({ maxUses: webBudget }),
-      web_fetch: anthropic.tools.webFetch_20260209({ maxUses: webBudget }),
-    },
+
+    ...(provider === "anthropic"
+      ? {
+          tools: {
+            web_search: anthropic!.tools.webSearch_20260209({
+              maxUses: webBudget,
+            }),
+            web_fetch: anthropic!.tools.webFetch_20260209({
+              maxUses: webBudget,
+            }),
+          },
+        }
+      : {}),
+
     stopWhen: stepCountIs(8),
+
     onFinish: async ({ usage, steps }) => {
       try {
         const latencyMs = Date.now() - startTime;
+
         const toolCalls = (steps || []).reduce(
           (acc, step) => acc + (step.toolCalls?.length ?? 0),
           0
         );
+
         const inputTokens = usage?.inputTokens ?? 0;
         const outputTokens = usage?.outputTokens ?? 0;
-        const cachedTokens = usage?.cachedInputTokens ?? 0;
+        const cachedTokens =
+          provider === "anthropic"
+            ? usage?.inputTokenDetails?.cacheReadTokens ?? 0
+            : 0;
+
         await appendUsage({
           timestamp: new Date().toISOString(),
           agentSlug,

@@ -13,8 +13,20 @@ interface Result {
   slides?: Slide[]; caption?: string; hashtags?: string[]; headline?: string; body?: string; tweets?: string[];
 }
 interface ContentPost {
-  id: string; platform: Platform; format: Format; idea: string; template?: string;
-  result: Result; status: "draft" | "scheduled" | "posted"; schedule?: { at: string } | null; createdAt: string;
+  id: string;
+  platform: Platform;
+  format: Format;
+  idea: string;
+  template?: string;
+  result: Result;
+  visuals?: {
+    jobs: { index: number; jobId: string }[];
+    images: (string | null)[];
+    done: boolean;
+  };
+  status: "draft" | "scheduled" | "posted";
+  schedule?: { at: string } | null;
+  createdAt: string;
 }
 
 /* ============ carousel templates (DA) ============ */

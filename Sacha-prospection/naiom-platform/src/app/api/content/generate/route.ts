@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       const arr = (v: unknown) => (Array.isArray(v) ? v.map(String) : []);
       const result: ContentResult = {
         platform, format,
-        slides: t1.slides.map((s) => ({ title: String(s.title ?? ""), body: s.sub ?? (arr(s.bullets).join(" · ") || arr(s.card).join(" ")) })),
+        slides: t1.slides.map((s) => ({ title: String(s.title ?? ""), body: s.sub ?? (arr(s.bullets).join(" · ") || "") })),
         caption: `${idea.trim()} 👇`,
         hashtags: [],
       };

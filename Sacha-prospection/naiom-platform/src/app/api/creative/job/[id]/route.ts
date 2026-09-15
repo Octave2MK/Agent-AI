@@ -13,7 +13,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   if (c.status === "done") return Response.json({ status: "done", imageUrl: c.imageUrl, thumbUrl: c.thumbUrl });
 
   try {
-    const r = await pollSoul({ statusUrl: c.statusUrl, requestId: c.requestId });
+    const r = await pollSoul({ requestId: c.requestId });
     if (r.status === "completed" && r.imageUrl) {
       const upd = await updateCreative(id, { status: "done", imageUrl: r.imageUrl, thumbUrl: r.thumbUrl });
       return Response.json({ status: "done", imageUrl: upd?.imageUrl, thumbUrl: upd?.thumbUrl });

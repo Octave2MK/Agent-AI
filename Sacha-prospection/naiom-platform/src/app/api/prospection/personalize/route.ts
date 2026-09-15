@@ -1,4 +1,5 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateText } from "ai";
 import { readLeads, updateLead } from "@/lib/prospection/store";
 
@@ -11,7 +12,16 @@ export const maxDuration = 60;
  * Claude rédige l'email + le message LinkedIn personnalisés à partir de la fiche.
  */
 export async function POST(req: Request) {
-  if (!process.env.ANTHROPIC_API_KEY) {
+  const provider = process.env.AI_PROVIDER ?? "anthropic";
+
+  if (provider === "gemini" && !process.env.GEMINI_API_KEY) {
+    return Response.json(
+      { error: "GEMINI_API_KEY absente dans .env.local." },
+      { status: 412 }
+    );
+  }
+
+  if (provider === "anthropic" && !process.env.ANTHROPIC_API_KEY) {
     return Response.json(
       { error: "ANTHROPIC_API_KEY absente dans .env.local." },
       { status: 412 }
@@ -22,9 +32,21 @@ export async function POST(req: Request) {
     const lead = (await readLeads()).find((l) => l.id === leadId);
     if (!lead) return Response.json({ error: "Lead introuvable" }, { status: 404 });
 
-    const anthropic = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    const anthropic =
+      provider === "anthropic"
+        ? createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+        : null;
+
+    const google =
+      provider === "gemini"
+        ? createGoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY })
+        : null;
+
     const { text } = await generateText({
-      model: anthropic("claude-sonnet-5"),
+      model:
+        provider === "gemini"
+          ? google!("gemini-3.8-flash")
+          : anthropic!("claude-sonnet-5"),
       prompt: `Tu es Sacha, l'agent prospection de NAIOM Agency (agence d'ingénierie d'agents IA et d'automatisations n8n pour PME, basée à Dubaï, clientèle francophone).
 
 Rédige une approche de prospection B2B personnalisée pour ce prospect :

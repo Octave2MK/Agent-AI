@@ -1,0 +1,2 @@
+{"timestamp":"2026-09-15T12:18:49.917Z","agentSlug":"createur-contenu","model":"gemini-3.6-flash","inputTokens":472,"outputTokens":199,"cacheReadTokens":0,"cacheCreationTokens":0,"latencyMs":18555,"success":true,"toolCalls":0}
+{"timestamp":"2026-09-15T12:22:46.325Z","agentSlug":"createur-contenu","model":"gemini-3.6-flash","inputTokens":0,"outputTokens":0,"cacheReadTokens":0,"cacheCreationTokens":0,"latencyMs":56514,"success":false,"toolCalls":0}

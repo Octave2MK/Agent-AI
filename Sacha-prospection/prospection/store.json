@@ -1,0 +1,29 @@
+{
+  "leads": [
+    {
+      "id": "lead-1789472344010-0",
+      "name": "Dakar",
+      "niche": "Coach business B2B",
+      "ville": "Dakar",
+      "category": null,
+      "address": "Sénégal",
+      "phone": "",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Dakar&query_place_id=ChIJcbvFs_VywQ4RH7JdLdkXfLE",
+      "rating": null,
+      "reviewsCount": null,
+      "emails": [],
+      "emailVerified": false,
+      "socials": [],
+      "status": "pret",
+      "createdAt": "2026-09-15T11:39:04.010Z",
+      "enrichedAt": "2026-09-15T11:40:25.429Z",
+      "insights": "Pas de site web. 0 avis Google (?/5). Contact possible par téléphone.",
+      "outreach": {
+        "subject": "Coaching B2B à Dakar : vos process",
+        "email": "Bonjour,\n\nEn recherchant votre activité de coaching B2B à Dakar, j'ai constaté que vous opérez sans site web ni présence sur Google.\n\nDans le coaching pour dirigeants, qualifier manuellement chaque prise de contact et coordonner les rendez-vous consomme un temps précieux sur vos accompagnements. Mettre en place un agent IA connecté à vos canaux directs permet de pré-qualifier automatiquement vos prospects pour ne retenir que les profils pertinents.\n\nSeriez-vous ouvert à un audit gratuit de vos process pour identifier les tâches que vous pourriez automatiser ?\n\nBien à vous,\n\nZeyneb — NAIOM Agency",
+        "linkedin": "Vous coachez des dirigeants B2B à Dakar sans site web ni vitrine en ligne. Déléguer la qualification de vos prospects et la prise de RDV à un agent IA libérerait des heures pour vos séances. Seriez-vous ouvert à un audit gratuit de vos process actuels ?",
+        "generatedAt": "2026-09-15T12:09:35.783Z"
+      }
+    }
+  ]
+}
