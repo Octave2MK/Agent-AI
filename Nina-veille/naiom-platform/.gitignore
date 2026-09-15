@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Données sensibles / credentials de la plateforme NAIOM
+Nina-veille/naiom-platform/src/data/google-tokens.json
+Nina-veille/naiom-platform/src/data/arcads-tokens.json
+Nina-veille/naiom-platform/src/data/live-inbox.json
+Nina-veille/naiom-platform/src/data/live-drive.json
+Nina-veille/naiom-platform/src/data/live-youtube.json
