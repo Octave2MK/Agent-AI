@@ -3,20 +3,20 @@
  * Victor renvoie un JSON complet → rendu ensuite en PDF pro (schémas + prix).
  * L'email d'envoi est renvoyé SÉPARÉMENT (jamais dans le PDF).
  */
-import { createAnthropic } from "@ai-sdk/anthropic";
 import { generateText } from "ai";
+import { getAIModel, requireAIKey } from "@/lib/ai/provider";
 
 export interface ProcessStep { step: string; pain: string }
 export interface Solution {
   title: string;
   problem: string;
   how: string;
-  before: string[]; // process actuel (manuel)
-  after: string[]; // process automatisé
+  before: string[];
+  after: string[];
   tools: string[];
-  gain: string; // ex. "≈ 8 h/semaine récupérées"
-  setup: number; // prix de mise en place (€)
-  recurring: number; // abonnement mensuel (€), 0 si aucun
+  gain: string;
+  setup: number;
+  recurring: number;
 }
 export interface PricingItem { label: string; amount: number; type: "setup" | "mensuel" }
 export interface TimelinePhase { phase: string; label: string }
@@ -26,7 +26,7 @@ export interface Proposal {
   sector: string;
   contactName: string;
   date: string;
-  reference: string; // ex. "PROP-2026-014"
+  reference: string;
   executiveSummary: string;
   context: string;
   processIntro: string;
@@ -48,28 +48,28 @@ const SYSTEM = `Tu es Victor, closer et ingénieur solutions chez NAIOM (agence 
 
 Tu réponds UNIQUEMENT avec un objet JSON valide (aucun texte autour, pas de bloc markdown), conforme à ce schéma :
 {
-  "prospect": string,               // nom de l'entreprise du prospect
-  "sector": string,                 // secteur (ex. "Immobilier", "E-commerce")
-  "contactName": string,            // interlocuteur principal
-  "reference": string,              // ex. "PROP-2026-XXX"
-  "executiveSummary": string,       // 2-3 phrases: l'enjeu + la promesse
-  "context": string,                // 1 paragraphe: situation actuelle et besoins détectés AU CALL
-  "processIntro": string,           // 1-2 phrases introduisant l'analyse du process actuel
-  "currentProcess": [ { "step": string, "pain": string } ],   // 4-6 étapes du process ACTUEL avec le point de douleur de chacune
+  "prospect": string,
+  "sector": string,
+  "contactName": string,
+  "reference": string,
+  "executiveSummary": string,
+  "context": string,
+  "processIntro": string,
+  "currentProcess": [ { "step": string, "pain": string } ],
   "solutions": [ {
-     "title": string,               // nom de l'automatisation proposée
-     "problem": string,             // le problème précis résolu
-     "how": string,                 // comment ça marche, 1-2 phrases concrètes
-     "before": [string],            // 3-4 étapes du flux MANUEL actuel (court, 2-4 mots/étape)
-     "after": [string],             // 3-4 étapes du flux AUTOMATISÉ (court)
-     "tools": [string],             // outils (n8n, Claude, Airtable, Make, Gmail API...)
-     "gain": string,                // gain chiffré réaliste (temps/€/erreurs)
-     "setup": number,               // prix de mise en place en €
-     "recurring": number            // abonnement mensuel en € (0 si aucun)
-  } ],                              // 2-4 solutions
-  "timeline": [ { "phase": string, "label": string } ],   // 3-4 phases (ex. "Semaine 1-2" / "Cadrage & accès")
-  "nextSteps": [string],            // 2-3 prochaines étapes concrètes
-  "email": { "subject": string, "body": string }   // email d'accompagnement PRO, séparé du PDF, en français, signé "L'équipe NAIOM"
+     "title": string,
+     "problem": string,
+     "how": string,
+     "before": [string],
+     "after": [string],
+     "tools": [string],
+     "gain": string,
+     "setup": number,
+     "recurring": number
+  } ],
+  "timeline": [ { "phase": string, "label": string } ],
+  "nextSteps": [string],
+  "email": { "subject": string, "body": string }
 }
 
 Règles:
@@ -78,7 +78,6 @@ Règles:
 - "before"/"after" = étapes TRÈS courtes (pour un schéma visuel).
 - Ne mets JAMAIS l'email dans le corps de la proposition ; il va dans le champ "email".`;
 
-/** Échappe les retours-ligne bruts DANS les chaînes JSON (Claude en met parfois). */
 function escapeCtrlInStrings(s: string): string {
   let out = "", inStr = false, esc = false;
   for (const ch of s) {
@@ -136,7 +135,7 @@ function buildPricing(sols: Partial<Solution>[]): Proposal["pricing"] {
 }
 
 export async function generateProposal(call: CallContext, prospect: string): Promise<Proposal> {
-  if (!process.env.ANTHROPIC_API_KEY) throw new Error("ANTHROPIC_API_KEY absente dans .env.local.");
+  requireAIKey();
   const context = `Call analysé (source Fireflies) :
 # ${call.title}
 Date: ${call.date} · Type: ${call.type} · Sentiment: ${call.sentiment}
@@ -158,10 +157,9 @@ Prospect (entreprise cible) : ${prospect}
 
 Génère MAINTENANT le JSON de la proposition.`;
 
-  const anthropic = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const { text } = await generateText({
-    model: anthropic("claude-opus-5"),
-    maxOutputTokens: 16000, // Opus 5 pense + écrit un gros JSON → éviter la troncature ("Unterminated string")
+    model: getAIModel("claude-opus-5"),
+    maxOutputTokens: 16000,
     system: SYSTEM,
     prompt: context,
   });
