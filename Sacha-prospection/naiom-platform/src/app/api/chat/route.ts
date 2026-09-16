@@ -1,6 +1,6 @@
 import { convertToModelMessages, isToolUIPart, stepCountIs, streamText, type UIMessage } from "ai";
 import { createAnthropic } from "@ai-sdk/anthropic";
-import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { getAIModel, getAIProvider } from "@/lib/ai/provider";
 import { getAgentBySlug } from "@/lib/agents";
 import { buildMockResponse } from "@/lib/mockStream";
 import { renderInbox, renderMeetings, renderCandidatesFull, renderYouTube, renderDrive } from "@/lib/dataSources";
@@ -185,12 +185,10 @@ export async function POST(req: Request) {
 
   const agent = await getAgentBySlug(agentSlug);
   if (!agent) {
-    return new Response(`Unknown agent "${agentSlug}"`, { status: 404 });
+    return new Response(`Unknown agent \"${agentSlug}\"`, { status: 404 });
   }
 
-  const provider: "anthropic" | "gemini" =
-    process.env.AI_PROVIDER === "gemini" ? "gemini" : "anthropic";
-
+  const provider = getAIProvider();
   const providerApiKey =
     provider === "gemini"
       ? process.env.GEMINI_API_KEY
@@ -211,24 +209,19 @@ export async function POST(req: Request) {
     provider
   );
 
+  // Le client Anthropic reste local uniquement pour ses outils natifs.
+  // Le modèle lui-même passe toujours par le provider partagé.
   const anthropic =
     provider === "anthropic"
       ? createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
       : null;
 
-  const google =
-    provider === "gemini"
-      ? createGoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY! })
-      : null;
-
   const startTime = Date.now();
-
+  const anthropicModel = /opus/i.test(agent.model)
+    ? "claude-opus-5"
+    : "claude-sonnet-5";
   const modelId =
-    provider === "gemini"
-      ? "gemini-3.6-flash"
-      : /opus/i.test(agent.model)
-        ? "claude-opus-5"
-        : "claude-sonnet-5";
+    provider === "gemini" ? "gemini-3.8-flash" : anthropicModel;
 
   // Prompt caching Anthropic (TTL ~5min) — pose un cache_control ephemeral sur
   // le system pour que les tours successifs réutilisent la cache au lieu de
@@ -254,10 +247,7 @@ export async function POST(req: Request) {
   const webBudget = agentSlug === "analyste" ? 2 : 3;
 
   const result = streamText({
-    model: 
-      provider === "gemini"
-        ? google!("gemini-3.8-flash")
-        : anthropic!(modelId),
+    model: getAIModel(anthropicModel),
 
     ...(provider === "gemini"
       ? {
