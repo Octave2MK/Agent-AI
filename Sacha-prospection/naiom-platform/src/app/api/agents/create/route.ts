@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createAnthropic } from "@ai-sdk/anthropic";
 import { generateText } from "ai";
+import { getAIModel, getAIProvider } from "@/lib/ai/provider";
 import { getAgentBySlug } from "@/lib/agents";
 import { DELIVERABLE_FOLDERS } from "@/lib/paths";
 import { getMeetings } from "@/lib/dataSources";
@@ -36,7 +36,18 @@ export async function POST(req: Request) {
   try {
     const { agentSlug, messages } = (await req.json()) as { agentSlug?: string; messages?: Msg[] };
     if (!agentSlug) return Response.json({ error: "agentSlug requis" }, { status: 400 });
-    if (!process.env.ANTHROPIC_API_KEY) return Response.json({ error: "ANTHROPIC_API_KEY absente." }, { status: 412 });
+
+    try {
+      if (getAIProvider() === "gemini" && !process.env.GEMINI_API_KEY) {
+        return Response.json({ error: "GEMINI_API_KEY absente." }, { status: 412 });
+      }
+      if (getAIProvider() === "anthropic" && !process.env.ANTHROPIC_API_KEY) {
+        return Response.json({ error: "ANTHROPIC_API_KEY absente." }, { status: 412 });
+      }
+    } catch (err) {
+      return Response.json({ error: err instanceof Error ? err.message : "Configuration IA invalide." }, { status: 412 });
+    }
+
     const agent = await getAgentBySlug(agentSlug);
     if (!agent) return Response.json({ error: "Agent inconnu" }, { status: 404 });
 
@@ -63,10 +74,9 @@ export async function POST(req: Request) {
 
     // ---- Autres agents : livrable complet en markdown, sauvegardé ----
     const folder = DELIVERABLE_FOLDERS[agentSlug];
-    const anthropic = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const modelId = /opus/i.test(agent.model) ? "claude-opus-5" : "claude-sonnet-5";
     const { text } = await generateText({
-      model: anthropic(modelId),
+      model: getAIModel(modelId),
       maxOutputTokens: 8000,
       system: `${agent.systemPrompt || `Tu es ${agent.name}.`}\n\nProduis MAINTENANT le livrable complet, final, prêt à l'emploi, en Markdown propre. Pas de préambule ("voici…"), pas de plan : le livrable lui-même. Respecte le format attendu de ton rôle.`,
       prompt: `Voici la conversation (l'utilisateur a approuvé le plan). Produis le livrable final complet.\n\n${convoText(messages ?? [])}`,
