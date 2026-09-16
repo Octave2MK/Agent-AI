@@ -11,10 +11,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
 import { spawn } from "node:child_process";
-import { createAnthropic } from "@ai-sdk/anthropic";
 import { generateText } from "ai";
 import puppeteer, { type Browser } from "puppeteer";
 import type { VeillePost } from "./store";
+import { getAIModel, requireAIKey } from "../ai/provider";
 
 export const PUBLIC_SHORTS_DIR = path.join(process.cwd(), "public", "generated-shorts");
 export const PUBLIC_SHORTS_URL = "/generated-shorts";
@@ -26,7 +26,7 @@ const MAX_SLIDES = 6;
 /** durée totale minimale de la vidéo, en secondes */
 const MIN_TOTAL_SEC = 25;
 
-/** Une slide-schéma, telle que produite par Claude. */
+/** Une slide-schéma, telle que produite par le modèle. */
 export interface ShortSlide {
   eyebrow: string;
   /** peut contenir <span class="lv-mark">…</span> (variantes m2 / m3) */
@@ -105,17 +105,15 @@ const FEWSHOT = `Exemple d'une slide DUO (schéma à gauche + interface à droit
 {"eyebrow":"PARTIE 1 · LA BOUCLE","title":"Une <span class=\\"lv-mark\\">loop</span>, ça recommence tout seul","goal":"🎯 le but : un objectif, pas une tâche","board":"lav","dur":6,
 "why":"Une IA classique répond une fois. Une loop <b>ne rend jamais un travail à moitié fait</b> : elle compare, corrige, recommence jusqu'à l'objectif.",
 "svg":"<defs><marker id=\\"s1ar\\" viewBox=\\"0 0 10 10\\" refX=\\"8\\" refY=\\"5\\" markerWidth=\\"7\\" markerHeight=\\"7\\" orient=\\"auto-start-reverse\\"><path d=\\"M0,0L10,5L0,10z\\" fill=\\"#0F0F0F\\"/></marker></defs><path id=\\"s1p\\" d=\\"M 230 150 H 970 A 130 130 0 0 1 970 430 H 230 A 130 130 0 0 1 230 150 Z\\" fill=\\"none\\" stroke=\\"#0F0F0F\\" stroke-width=\\"4\\" class=\\"flow\\"/><rect x=\\"280\\" y=\\"95\\" width=\\"330\\" height=\\"110\\" rx=\\"24\\" fill=\\"#5B4DEE\\"/><text x=\\"445\\" y=\\"160\\" text-anchor=\\"middle\\" fill=\\"#fff\\" font-size=\\"30\\" font-weight=\\"700\\">Tu fixes l'objectif</text><rect x=\\"690\\" y=\\"95\\" width=\\"290\\" height=\\"110\\" rx=\\"24\\" fill=\\"#FFFDF9\\" stroke=\\"#0F0F0F\\" stroke-width=\\"3.5\\"/><text x=\\"835\\" y=\\"160\\" text-anchor=\\"middle\\" font-size=\\"30\\" font-weight=\\"700\\">Claude agit</text><rect x=\\"600\\" y=\\"375\\" width=\\"370\\" height=\\"110\\" rx=\\"24\\" fill=\\"#FFFDF9\\" stroke=\\"#0F0F0F\\" stroke-width=\\"3.5\\"/><text x=\\"785\\" y=\\"440\\" text-anchor=\\"middle\\" font-size=\\"28\\" font-weight=\\"700\\">Il compare</text><rect x=\\"110\\" y=\\"375\\" width=\\"280\\" height=\\"110\\" rx=\\"24\\" fill=\\"#F5411C\\"/><text x=\\"250\\" y=\\"420\\" text-anchor=\\"middle\\" fill=\\"#fff\\" font-size=\\"27\\" font-weight=\\"700\\">Pas bon ?</text><text x=\\"250\\" y=\\"453\\" text-anchor=\\"middle\\" fill=\\"#fff\\" font-size=\\"23\\">il corrige</text><circle r=\\"17\\" fill=\\"#F5411C\\" stroke=\\"#0F0F0F\\" stroke-width=\\"3.5\\"><animateMotion dur=\\"4.5s\\" repeatCount=\\"indefinite\\"><mpath href=\\"#s1p\\"/></animateMotion></circle><text x=\\"545\\" y=\\"300\\" text-anchor=\\"middle\\" font-size=\\"27\\" class=\\"mt\\" fill=\\"#5A564E\\">essai <tspan class=\\"ph\\" style=\\"--d:0s\\" font-size=\\"42\\" font-weight=\\"700\\" fill=\\"#F5411C\\">1</tspan><tspan class=\\"ph\\" style=\\"--d:2s\\" font-size=\\"42\\" font-weight=\\"700\\" fill=\\"#F5411C\\">2</tspan><tspan class=\\"ph\\" style=\\"--d:4s\\" font-size=\\"42\\" font-weight=\\"700\\" fill=\\"#188A5C\\">3</tspan></text><g class=\\"pop\\"><rect x=\\"1035\\" y=\\"235\\" width=\\"150\\" height=\\"110\\" rx=\\"26\\" fill=\\"#9DB8A1\\" stroke=\\"#0F0F0F\\" stroke-width=\\"3.5\\"/><text x=\\"1110\\" y=\\"300\\" text-anchor=\\"middle\\" font-size=\\"25\\" font-weight=\\"700\\">atteint ✓</text></g>",
-"app":"<rect x=\\"20\\" y=\\"36\\" width=\\"560\\" height=\\"360\\" rx=\\"18\\" fill=\\"#fff\\" stroke=\\"#0F0F0F\\" stroke-width=\\"3\\"/><circle cx=\\"48\\" cy=\\"62\\" r=\\"6\\" fill=\\"#FF5F57\\"/><circle cx=\\"70\\" cy=\\"62\\" r=\\"6\\" fill=\\"#FEBC2E\\"/><circle cx=\\"92\\" cy=\\"62\\" r=\\"6\\" fill=\\"#28C840\\"/><rect x=\\"34\\" y=\\"84\\" width=\\"150\\" height=\\"296\\" rx=\\"12\\" fill=\\"#F6F5F1\\"/><rect x=\\"44\\" y=\\"96\\" width=\\"130\\" height=\\"30\\" rx=\\"8\\" fill=\\"#fff\\" stroke=\\"#E4E2DB\\" stroke-width=\\"1.5\\"/><text x=\\"55\\" y=\\"116\\" font-size=\\"12.5\\" font-weight=\\"700\\" fill=\\"#241F1A\\">+ Nouvelle session</text><text x=\\"55\\" y=\\"150\\" font-size=\\"12.5\\" fill=\\"#5A564E\\">Artéfacts</text><text x=\\"55\\" y=\\"176\\" font-size=\\"12.5\\" fill=\\"#5A564E\\">Routines</text><text x=\\"206\\" y=\\"122\\" font-size=\\"19\\" font-weight=\\"700\\" fill=\\"#241F1A\\"><tspan fill=\\"#E0764B\\">✳ </tspan>Quoi de prévu, Zeyneb ?</text><text x=\\"216\\" y=\\"166\\" font-size=\\"15\\" fill=\\"#5A564E\\" class=\\"lv-ph\\" style=\\"--d:0.4s\\">→ je fixe l'objectif</text><text x=\\"216\\" y=\\"198\\" font-size=\\"15\\" fill=\\"#5A564E\\" class=\\"lv-ph\\" style=\\"--d:1.2s\\">→ je compare, je corrige</text><text x=\\"216\\" y=\\"232\\" font-size=\\"15.5\\" font-weight=\\"700\\" fill=\\"#188A5C\\" class=\\"lv-ph\\" style=\\"--d:2s\\">✓ objectif atteint</text><rect x=\\"204\\" y=\\"330\\" width=\\"356\\" height=\\"42\\" rx=\\"12\\" fill=\\"#fff\\" stroke=\\"#C8C5BD\\" stroke-width=\\"2\\"/><clipPath id=\\"s1clp\\"><rect x=\\"216\\" y=\\"340\\" width=\\"330\\" height=\\"26\\"><animate attributeName=\\"width\\" values=\\"0;0;330;330;330\\" keyTimes=\\"0;0.14;0.5;0.92;1\\" dur=\\"6s\\" repeatCount=\\"indefinite\\"/></rect></clipPath><g clip-path=\\"url(#s1clp)\\"><text x=\\"218\\" y=\\"357\\" font-size=\\"14.5\\" fill=\\"#241F1A\\"><tspan fill=\\"#F5411C\\" font-weight=\\"700\\" class=\\"mt\\">/goal</tspan> un site qui marche</text></g><text x=\\"392\\" y=\\"357\\" font-size=\\"14.5\\" fill=\\"#241F1A\\" class=\\"blink\\">▌</text><text x=\\"556\\" y=\\"322\\" text-anchor=\\"end\\" font-size=\\"10.5\\" fill=\\"#8A867C\\">Opus 4.8</text>"}`;
+"app":"<rect x=\\"20\\" y=\\"36\\" width=\\"560\\" height=\\"360\\\\" rx=\\"18\\" fill=\\"#fff\\" stroke=\\"#0F0F0F\\" stroke-width=\\"3\\"/><circle cx=\\"48\\" cy=\\"62\\" r=\\"6\\" fill=\\"#FF5F57\\"/><circle cx=\\"70\\" cy=\\"62\\" r=\\"6\\" fill=\\"#FEBC2E\\"/><circle cx=\\"92\\" cy=\\"62\\" r=\\"6\\" fill=\\"#28C840\\"/><rect x=\\"34\\" y=\\"84\\" width=\\"150\\" height=\\"296\\" rx=\\"12\\" fill=\\"#F6F5F1\\"/><rect x=\\"44\\" y=\\"96\\" width=\\"130\\" height=\\"30\\" rx=\\"8\\" fill=\\"#fff\\" stroke=\\"#E4E2DB\\" stroke-width=\\"1.5\\"/><text x=\\"55\\" y=\\"116\\" font-size=\\"12.5\\" font-weight=\\"700\\" fill=\\"#241F1A\\">+ Nouvelle session</text><text x=\\"55\\" y=\\"150\\" font-size=\\"12.5\\" fill=\\"#5A564E\\">Artéfacts</text><text x=\\"55\\" y=\\"176\\" font-size=\\"12.5\\" fill=\\"#5A564E\\">Routines</text><text x=\\"206\\" y=\\"122\\" font-size=\\"19\\" font-weight=\\"700\\" fill=\\"#241F1A\\"><tspan fill=\\"#E0764B\\">✳ </tspan>Quoi de prévu, Zeyneb ?</text><text x=\\"216\\" y=\\"166\\" font-size=\\"15\\" fill=\\"#5A564E\\" class=\\"lv-ph\\" style=\\"--d:0.4s\\">→ je fixe l'objectif</text><text x=\\"216\\" y=\\"198\\" font-size=\\"15\\" fill=\\"#5A564E\\" class=\\"lv-ph\\" style=\\"--d:1.2s\\">→ je compare, je corrige</text><text x=\\"216\\" y=\\"232\\" font-size=\\"15.5\\" font-weight=\\"700\\" fill=\\"#188A5C\\" class=\\"lv-ph\\" style=\\"--d:2s\\">✓ objectif atteint</text><rect x=\\"204\\" y=\\"330\\" width=\\"356\\" height=\\"42\\" rx=\\"12\\" fill=\\"#fff\\" stroke=\\"#C8C5BD\\" stroke-width=\\"2\\"/><clipPath id=\\"s1clp\\"><rect x=\\"216\\" y=\\"340\\" width=\\"330\\" height=\\"26\\"><animate attributeName=\\"width\\" values=\\"0;0;330;330;330\\" keyTimes=\\"0;0.14;0.5;0.92;1\\" dur=\\"6s\\" repeatCount=\\"indefinite\\"/></rect></clipPath><g clip-path=\\"url(#s1clp)\\"><text x=\\"218\\" y=\\"357\\" font-size=\\"14.5\\" fill=\\"#241F1A\\"><tspan fill=\\"#F5411C\\" font-weight=\\"700\\" class=\\"mt\\">/goal</tspan> un site qui marche</text></g><text x=\\"392\\" y=\\"357\\" font-size=\\"14.5\\" fill=\\"#241F1A\\" class=\\"blink\\">▌</text><text x=\\"556\\" y=\\"322\\" text-anchor=\\"end\\" font-size=\\"10.5\\" fill=\\"#8A867C\\">Opus 4.8</text>"}`;
 
 interface RawDeck {
   slides?: ShortSlide[];
 }
 
-/** Demande à Claude le déck de schémas à partir du script du reel. */
+/** Demande au modèle le déck de schémas à partir du script du reel. */
 export async function generateShortDeck(post: VeillePost): Promise<ShortSlide[]> {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    throw new Error("ANTHROPIC_API_KEY absente dans .env.local.");
-  }
+  requireAIKey();
   // On privilégie la traduction FR si elle existe (rendu 100 % français garanti).
   const script = (post.scriptFr ?? post.script ?? "").trim();
   if (!script) throw new Error("Ce reel n'a pas encore de script transcrit.");
@@ -123,9 +121,8 @@ export async function generateShortDeck(post: VeillePost): Promise<ShortSlide[]>
     ? "(script déjà traduit en français)"
     : "(le script peut être en anglais — TRADUIS tout le rendu en français)";
 
-  const anthropic = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const { text } = await generateText({
-    model: anthropic("claude-sonnet-5"),
+    model: getAIModel("claude-sonnet-5"),
     maxOutputTokens: 16000,
 
     prompt: `${DESIGN_BRIEF}
