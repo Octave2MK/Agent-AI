@@ -1,4 +1,4 @@
-# Sacha — Agent prospection · Agent IA (template NAIOM)
+# Sacha — Agent prospection · Agent IA (template Nonvi-Efa)
 
 Ton agent IA prêt à l'emploi, à ouvrir dans **Claude Code**.
 
@@ -6,7 +6,7 @@ Ton agent IA prêt à l'emploi, à ouvrir dans **Claude Code**.
 1. Ouvre **ce dossier** dans Claude Code.
 2. Dans le terminal :
    ```bash
-   cd naiom-platform
+   cd Nonvi-Efa-platform
    cp .env.example .env.local     # puis colle ta clé Anthropic dans .env.local
    npm install
    npm run dev
@@ -23,4 +23,4 @@ Aucune clé, aucun historique, aucune donnée d'origine. Tout est à toi :
 - Remplace `clients/votre-marque/brand.md` par ton contexte de marque.
 - Tes livrables se rangent dans `(dans l'app)/`.
 
-Clés éventuelles selon les fonctionnalités : voir `naiom-platform/.env.example`.
+Clés éventuelles selon les fonctionnalités : voir `Nonvi-Efa-platform/.env.example`.

@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "arcadsId": "5f02f610-0bb8-49fc-9c02-add579e35fff",
+      "name": "Aura studio 4",
+      "description": "Parmi ses produits aux lignes épurées et discrètes, Harman/Kardon se laisse aller à un petit excès de folie avec son enceinte Aura Studio 4. Elle se caractérise avant tout par son design atypique avec dôme transparent, qui renferme un système d’éclairage multicolore dédié à créer une belle ambiance lumineuse.\r\n\r\n\"L’Aura Studio 4, conçue par Harman Kardon, allie une esthétique moderne à une qualité audio exceptionnelle pour offrir une expérience sonore unique, que ce soit pour la maison ou le bureau.",
+      "photoUrl": "/api/ecommerce/photo/photo-1789559774820.jpeg",
+      "arcadsImagePath": "external-api-temp-uploads/cf262965-12a7-4e47-9b91-540dcb481768.jpg",
+      "createdAt": "2026-09-16T11:56:18.970Z"
+    }
+  ],
+  "videos": [
+    {
+      "id": "ecom-1789560482072",
+      "kind": "showcase",
+      "backend": "mcp",
+      "arcadsId": "8962c6a8-6f3a-48d8-81de-c6dc9a0b364b",
+      "title": "Aura Studio 4",
+      "productArcadsId": "5f02f610-0bb8-49fc-9c02-add579e35fff",
+      "productName": "Aura studio 4",
+      "prompt": "Parmi ses produits aux lignes épurées et discrètes, Harman/Kardon se laisse aller à un petit excès de folie avec son enceinte Aura Studio 4. Elle se caractérise avant tout par son design atypique avec dôme transparent, qui renferme un système d’éclairage multicolore dédié à créer une belle ambiance lumineuse.\n\n\"L’Aura Studio 4, conçue par Harman Kardon, allie une esthétique moderne à une qualité audio exceptionnelle pour offrir une expérience sonore unique, que ce soit pour la maison ou le bureau.",
+      "aspectRatio": "9:16",
+      "status": "completed",
+      "createdAt": "2026-09-16T12:08:02.072Z",
+      "url": "https://argoseyes.s3-accelerate.amazonaws.com/production/videoassets/8962c6a8-6f3a-48d8-81de-c6dc9a0b364b.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAS5Z5FDA4BQBRWQOT%2F20260916%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20260916T122430Z&X-Amz-Expires=43200&X-Amz-Signature=893dead28e0f8b5355201959b019d6e30301b3637356532b7b2c63be43890bb5&X-Amz-SignedHeaders=host&response-content-type=video%2Fmp4&x-amz-checksum-mode=ENABLED&x-id=GetObject"
+    }
+  ]
+}

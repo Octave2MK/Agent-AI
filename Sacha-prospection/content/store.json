@@ -1,0 +1,173 @@
+{
+  "posts": [
+    {
+      "platform": "instagram",
+      "format": "carousel",
+      "idea": "Create a high-end cinematic Instagram post featuring an Audi RS Q8 in a dramatic urban setting at night. The car is parked on a wet black asphalt road, surrounded by modern glass skyscrapers and subtle city lights reflecting on the bodywork. Emphasize the aggressive RS design, wide stance, large alloy wheels, sharp LED headlights and sporty details. The Audi RS Q8 should look powerful, luxurious and intimidating. Low-angle 3/4 front view, cinematic lighting, realistic reflections, deep shadows, slight mist in the atmosphere, ultra-detailed automotive photography, photorealistic, premium luxury car advertisement, 8K, high contrast, sophisticated dark aesthetic, Instagram luxury automotive style, vertical 4:5 composition, no people, no text, no watermark.",
+      "template": "Minimal",
+      "refId": "ig-type1",
+      "tools": [],
+      "t1": {
+        "slides": [
+          {
+            "layout": "cover",
+            "title": "Le secret des visuels 3D auto",
+            "sub": "Décryptage pas à pas d'un prompt pub pour transformer un simple rendu IA en cliché publicitaire à 15 000 €."
+          },
+          {
+            "layout": "chat",
+            "title": "Pourquoi tes voitures font 'jeu vidéo' ?",
+            "para": "Quand tu demandes juste 'une belle Audi de nuit', l'IA lisse les surfaces et sursature les néons. Pour obtenir une image digne d'un panneau d'affichage, tu dois diriger l'IA comme un vrai directeur photo.",
+            "chat": [
+              {
+                "sender": "user",
+                "text": "Mon RS Q8 généré ressemble à un jouet en plastique surréaliste... J'ai pourtant mis 8K et ultra-réaliste !"
+              },
+              {
+                "sender": "lea",
+                "text": "Normal ! '8K' ne veut rien dire pour l'IA. Il faut décrire la physique : le bitume mouillé pour les reflets, la contre-plongée 3/4 pour la posture et des ombres profondes."
+              }
+            ]
+          },
+          {
+            "layout": "flow",
+            "title": "La structure d'un prompt pub en 4 étapes",
+            "para": "Ne jette pas tes adjectifs au hasard. Une IA génère un résultat ultra-précis si tu organises tes instructions par strates logiques, du sujet jusqu'au capteur de la caméra.",
+            "flow": [
+              {
+                "step": "01",
+                "title": "Sujet & carrosserie",
+                "desc": "Modèle exact, détails RS, posture agressive et jantes larges."
+              },
+              {
+                "step": "02",
+                "title": "Sol & réflecteurs",
+                "desc": "Asphalte noir mouillé et façades vitrées pour forcer les reflets."
+              },
+              {
+                "step": "03",
+                "title": "Lumière & brume",
+                "desc": "Ambiance sombre, ombres dures, feux LED et légère brume diffuse."
+              },
+              {
+                "step": "04",
+                "title": "Cadrage & ratio",
+                "desc": "Vue ras du sol 3/4 avant, format vertical 4:5 sans texte ni passant."
+              }
+            ]
+          },
+          {
+            "layout": "compare",
+            "title": "Prompt paresseux vs Direction photo",
+            "para": "La différence de réalisme réside dans le niveau de contrainte optique et de matière que tu imposes dans ton brief.",
+            "compare": {
+              "beforeTitle": "Prompt amateur",
+              "beforeDesc": "'Une Audi RS Q8 noire stylée de nuit dans une ville avec plein de néons, très réaliste, 8K' -> Résultat : reflets incohérents, peinture plastique, ciel saturé de violet.",
+              "afterTitle": "Prompt direction artistique",
+              "afterDesc": "'Audi RS Q8, vue 3/4 en contre-plongée, sol asphalte trempé, gratte-ciels en verre sombres, éclairage cinématique contrasté' -> Résultat : reflets géométriques nets, posture trapue et crédible."
+            }
+          },
+          {
+            "layout": "note",
+            "title": "L'anatomie des mots-clés clés",
+            "para": "Chaque expression du prompt initial a un rôle physique précis dans le calcul de l'image. Voici les termes indispensables à conserver dans ta bibliothèque.",
+            "noteCard": [
+              {
+                "label": "Wet black asphalt",
+                "detail": "Oblige l'IA à créer un miroir au sol qui dédouble les feux LED et allonge la silhouette."
+              },
+              {
+                "label": "Low-angle 3/4 view",
+                "detail": "La contre-plongée écrase le sol et fait ressortir les ailes élargies du SUV."
+              },
+              {
+                "label": "Deep shadows",
+                "detail": "Évite le rendu 'flat' et donne du volume sculptural aux nervures du capot."
+              },
+              {
+                "label": "No people, no watermark",
+                "detail": "Garantit un plan commercial épuré sans artefacts bizarres en arrière-plan."
+              }
+            ],
+            "postit": "Astuce : l'asphalte mouillé est le hack ultime pour forcer l'IA à calculer la réfraction lumineuse."
+          },
+          {
+            "layout": "checklist",
+            "title": "La checklist avant de générer",
+            "para": "Passe en revue ces 5 points avant de lancer ton rendu pour économiser tes crédits et obtenir le bon cliché du premier coup.",
+            "checklist": [
+              {
+                "label": "Angle défini : contre-plongée 3/4 pour un look agressif ?",
+                "done": true
+              },
+              {
+                "label": "Matière au sol précisée (bitume mouillé, pavés humides) ?",
+                "done": true
+              },
+              {
+                "label": "Ratio natif spécifié (4:5 vertical pour Instagram) ?",
+                "done": true
+              },
+              {
+                "label": "Mots-valises supprimés ('hyper-beau', 'incroyable') ?",
+                "done": true
+              },
+              {
+                "label": "Contraintes négatives ajoutées (sans texte, sans watermark) ?",
+                "done": true
+              }
+            ],
+            "postit": "Rappelle-toi : plus le sol est texturé, plus la voiture semblera ancrée dans la réalité."
+          },
+          {
+            "layout": "cta",
+            "title": "Prêt à shooter ta prochaine campagne ?",
+            "para": "Applique cette grille de lecture à tous tes prompts de véhicules ou de produits de luxe pour des rendus photoréalistes bluffants.",
+            "cta": "Enregistre ce post et commente 'PROMPT' pour recevoir ma grille de direction photo en DM !"
+          }
+        ],
+        "tools": [],
+        "idea": "Create a high-end cinematic Instagram post featuring an Audi RS Q8 in a dramatic urban setting at night. The car is parked on a wet black asphalt road, surrounded by modern glass skyscrapers and subtle city lights reflecting on the bodywork. Emphasize the aggressive RS design, wide stance, large alloy wheels, sharp LED headlights and sporty details. The Audi RS Q8 should look powerful, luxurious and intimidating. Low-angle 3/4 front view, cinematic lighting, realistic reflections, deep shadows, slight mist in the atmosphere, ultra-detailed automotive photography, photorealistic, premium luxury car advertisement, 8K, high contrast, sophisticated dark aesthetic, Instagram luxury automotive style, vertical 4:5 composition, no people, no text, no watermark."
+      },
+      "result": {
+        "platform": "instagram",
+        "format": "carousel",
+        "slides": [
+          {
+            "title": "Le secret des visuels 3D auto",
+            "body": "Décryptage pas à pas d'un prompt pub pour transformer un simple rendu IA en cliché publicitaire à 15 000 €."
+          },
+          {
+            "title": "Pourquoi tes voitures font 'jeu vidéo' ?",
+            "body": ""
+          },
+          {
+            "title": "La structure d'un prompt pub en 4 étapes",
+            "body": ""
+          },
+          {
+            "title": "Prompt paresseux vs Direction photo",
+            "body": ""
+          },
+          {
+            "title": "L'anatomie des mots-clés clés",
+            "body": ""
+          },
+          {
+            "title": "La checklist avant de générer",
+            "body": ""
+          },
+          {
+            "title": "Prêt à shooter ta prochaine campagne ?",
+            "body": ""
+          }
+        ],
+        "caption": "Create a high-end cinematic Instagram post featuring an Audi RS Q8 in a dramatic urban setting at night. The car is parked on a wet black asphalt road, surrounded by modern glass skyscrapers and subtle city lights reflecting on the bodywork. Emphasize the aggressive RS design, wide stance, large alloy wheels, sharp LED headlights and sporty details. The Audi RS Q8 should look powerful, luxurious and intimidating. Low-angle 3/4 front view, cinematic lighting, realistic reflections, deep shadows, slight mist in the atmosphere, ultra-detailed automotive photography, photorealistic, premium luxury car advertisement, 8K, high contrast, sophisticated dark aesthetic, Instagram luxury automotive style, vertical 4:5 composition, no people, no text, no watermark. 👇",
+        "hashtags": []
+      },
+      "id": "post-mu40nklz",
+      "status": "draft",
+      "createdAt": "2026-09-16T11:27:24.695Z"
+    }
+  ]
+}

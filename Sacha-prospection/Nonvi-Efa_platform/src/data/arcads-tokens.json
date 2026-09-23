@@ -1,0 +1,9 @@
+{
+  "client_id": "537deda1e6cd4d6394ad8a61598876b5",
+  "redirect_uri": "http://localhost:3000/api/integrations/arcads/callback",
+  "tokens": {
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMjFhZDI3Ny0zYzg4LTQ0MmQtOGI1YS1mOWUzZWFhYTM3NjkiLCJ3b3Jrc3BhY2VJZCI6IjY2YmFmZmU2LTU0OWQtNDE5MS04N2RkLTNkMjlmZDAxMDU3ZiIsInR5cGUiOiJtY3Bfb2F1dGgiLCJzY29wZSI6Im1jcCBvZmZsaW5lX2FjY2VzcyIsImlhdCI6MTc4OTU1OTMzMywiZXhwIjoxNzg5NjQ1NzMzfQ.tFdDQupbb8R-XOjDWnZihELf5ddwcJ0CP-JVnrwr7Zc",
+    "refresh_token": "hQPe4NhH4pSV6XKtX5kA5NgDpHNijd6kmG04jpQf4qzX_yIvuy3y1w",
+    "expires_at": 1789645671808
+  }
+}

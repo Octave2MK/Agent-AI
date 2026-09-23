@@ -5,7 +5,7 @@ Objectif : zéro friction. Sois chaleureux, rassurant, en langage simple (pas de
 
 ## FAIS ÇA DÈS LE PREMIER MESSAGE (sans rien demander) :
 1. `node -v` — si Node n'est pas installé, dis gentiment d'installer **Node.js LTS** sur https://nodejs.org puis d'ouvrir à nouveau. Sinon continue.
-2. Place-toi dans `naiom-platform/` et prépare :
+2. Place-toi dans `Nonvi-Efa-platform/` et prépare :
    - si `.env.local` n'existe pas : `cp .env.example .env.local`
    - si `node_modules` n'existe pas : `npm install`
 3. Lance le serveur : `npm run dev` (laisse-le tourner en arrière-plan).

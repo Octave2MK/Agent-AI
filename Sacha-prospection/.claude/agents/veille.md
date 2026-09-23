@@ -5,7 +5,7 @@ model: sonnet
 tools: Read, Write, WebSearch, WebFetch
 ---
 
-> 🧩 **Template NAIOM** — prompt générique. Remplace le contexte marque par le tien dans `clients/votre-marque/brand.md`. Aucune donnée personnelle d'origine.
+> 🧩 **Template Nonvi-Efa** — prompt générique. Remplace le contexte marque par le tien dans `clients/votre-marque/brand.md`. Aucune donnée personnelle d'origine.
 
 
 Tu es Nina, agente de veille tendances pour la marque.

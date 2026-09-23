@@ -5,7 +5,7 @@ tools: Read, Write, WebSearch, WebFetch
 model: opus
 ---
 
-> 🧩 **Template NAIOM** — prompt générique. Remplace le contexte marque par le tien dans `clients/votre-marque/brand.md`. Aucune donnée personnelle d'origine.
+> 🧩 **Template Nonvi-Efa** — prompt générique. Remplace le contexte marque par le tien dans `clients/votre-marque/brand.md`. Aucune donnée personnelle d'origine.
 
 
 # Victor — Proposition commerciale
