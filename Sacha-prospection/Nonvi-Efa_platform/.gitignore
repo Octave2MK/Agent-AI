@@ -41,8 +41,10 @@ yarn-error.log*
 next-env.d.ts
 
 # Données sensibles / credentials de la plateforme Nonvi-Efa
-Sacha-prospection/Nonvi-Efa-platform/src/data/google-tokens.json
-Sacha-prospection/Nonvi-Efa-platform/src/data/arcads-tokens.json
-Sacha-prospection/Nonvi-Efa-platform/src/data/live-inbox.json
-Sacha-prospection/Nonvi-Efa-platform/src/data/live-drive.json
-Sacha-prospection/Nonvi-Efa-platform/src/data/live-youtube.json
+Nonvi-Efa-platform/src/data/google-tokens.json
+Nonvi-Efa-platform/src/data/arcads-tokens.json
+Nonvi-Efa-platform/src/data/live-inbox.json
+Nonvi-Efa-platform/src/data/live-drive.json
+Nonvi-Efa-platform/src/data/live-youtube.json
+
+/analytics/usage
