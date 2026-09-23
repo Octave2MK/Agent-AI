@@ -1,6 +1,6 @@
 /**
  * Génération des VISUELS via Higgsfield (nano_banana_pro) à partir des templates
- * de Zeyneb : chaque slide de carrousel est rendue en reproduisant le template
+ * de Melyssa : chaque slide de carrousel est rendue en reproduisant le template
  * choisi, avec le texte de la slide. Léa écrit le texte, Higgsfield fait le visuel.
  */
 import fs from "node:fs";
@@ -35,7 +35,7 @@ export function resolveTemplateSlides(refId?: string | null): string[] {
   return [];
 }
 
-/** Photo de Zeyneb (référence visage) pour les templates LinkedIn/Twitter. */
+/** Photo de Melyssa (référence visage) pour les templates LinkedIn/Twitter. */
 export function facePath(): string | null {
   const dir = path.join(TEMPLATES_DIR, "Template instagram", "Photo de moi ");
   try {

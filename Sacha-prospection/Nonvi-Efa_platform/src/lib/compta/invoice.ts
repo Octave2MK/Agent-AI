@@ -11,7 +11,7 @@ import type { Invoice } from "./clients";
 const ISSUER = {
   name: "Nonvi-Efa Agency",
   tagline: "Ingénierie d'agents IA & automatisations",
-  email: "Nonvi-Efaagency@gmail.com",
+  email: "moreloctave1@gmail.com",
   color: "#F5411C",
   ink: "#1A1A1A",
 };

@@ -32,7 +32,7 @@ const SUGGESTIONS: Partial<Record<AgentSlug, string[]>> = {
     "Positionnement concurrentiel vs Webconversion sur l'IA marketing",
   ],
   "createur-contenu": [
-    "1 post LinkedIn long pour Maxim sur 'ChatGPT outil vs Davide collègue'",
+    "1 post LinkedIn long pour Octave sur 'ChatGPT outil vs Davide collègue'",
     "3 hooks à tester pour une campagne Sophia (AI Executive Assistant)",
     "Un email de nurturing post-Masterclass (J+1)",
   ],
@@ -43,7 +43,7 @@ const SUGGESTIONS: Partial<Record<AgentSlug, string[]>> = {
   ],
   analyste: [
     "Rapport LinkedIn des posts de la semaine dernière",
-    "Plan d'optim 30j pour Zeyneb sur YouTube",
+    "Plan d'optim 30j pour Melyssa sur YouTube",
     "Quels KPIs prioritaires pour tracker le lancement Davide ?",
   ],
   presentateur: [

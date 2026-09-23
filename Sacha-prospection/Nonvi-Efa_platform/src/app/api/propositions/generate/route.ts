@@ -5,7 +5,7 @@ import { generateProposalPDF } from "@/lib/propositions/proposalPdf";
 export const runtime = "nodejs";
 export const maxDuration = 120;
 
-const INTERNAL = /zeyneb|maxim|Nonvi-Efa/i;
+const INTERNAL = /Melyssa|Octave|Nonvi-Efa/i;
 
 /**
  * POST /api/propositions/generate { callId }

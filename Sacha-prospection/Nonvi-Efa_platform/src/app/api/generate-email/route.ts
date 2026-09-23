@@ -14,11 +14,11 @@ CONSIGNES :
 - Français, vouvoiement B2B
 - Ton : ${tone ?? "professionnel, empathique, direct"}
 - Pas de jargon creux (disruptif, game-changer, etc.)
-- Signature : "Zeyneb Madi, Nonvi-Efa Agency"
+- Signature : "Melyssa Madi, Nonvi-Efa Agency"
 - RÉPONSE OBLIGATOIRE en JSON strict, pas de markdown, pas de préambule.
 
 Format de réponse :
-{"subject": "...", "body": "Bonjour ...,\\n\\n[corps]\\n\\nBien à vous,\\nZeyneb"}`;
+{"subject": "...", "body": "Bonjour ...,\\n\\n[corps]\\n\\nBien à vous,\\nMelyssa"}`;
   const userPrompt = `Objectif : ${purpose}\n\nContexte :\n${context}\n\nRéponds uniquement avec le JSON structuré (subject + body).`;
 
   try {

@@ -130,7 +130,7 @@ export const MOCK_CANDIDATES: MockCandidate[] = [
       "Top performer chez Lemlist (top 3 AE sur 12, 2 années consécutives)",
       "Quota atteint à 118% en 2025",
       "Réseau dense dans l'écosystème SaaS/IA FR",
-      "Connaît Zeyneb via LinkedIn (follower actif)",
+      "Connaît Melyssa via LinkedIn (follower actif)",
     ],
     redFlags: [
       "Pas de réel track record sur des deals >80k€",

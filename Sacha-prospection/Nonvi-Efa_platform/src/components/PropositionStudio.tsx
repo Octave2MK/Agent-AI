@@ -13,7 +13,7 @@ interface GenResult {
   email: { subject: string; body: string };
 }
 
-const INTERNAL = /zeyneb|maxim|Nonvi-Efa/i;
+const INTERNAL = /Melyssa|Octave|Nonvi-Efa/i;
 
 export function PropositionStudio({ calls: allCalls }: { calls: PropCall[] }) {
   const calls = allCalls.filter((c) => c.type !== "interne");

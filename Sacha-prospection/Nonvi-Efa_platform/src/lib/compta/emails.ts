@@ -14,7 +14,7 @@ const frDate = (iso: string | null) => {
 export function draftEmail(inv: Invoice): { subject: string; body: string } {
   const name = inv.client?.name ?? "";
   const hello = name ? `Bonjour ${name},` : "Bonjour,";
-  const signoff = "\n\nBien à vous,\nL'équipe Nonvi-Efa Agency\nNonvi-Efaagency@gmail.com";
+  const signoff = "\n\nBien à vous,\nL'équipe Nonvi-Efa Agency\nmoreloctave1@gmail.com";
 
   if (inv.status === "Paid") {
     return {

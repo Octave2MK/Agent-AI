@@ -46,7 +46,7 @@ export interface CalendarSlot {
   channel: "LinkedIn" | "Instagram" | "YouTube" | "Email";
   time: string; // "07:45"
   title: string;
-  author: string; // Zeyneb, Maxim, Page Nonvi-Efa
+  author: string; // Melyssa, Octave, Page Nonvi-Efa
   status: "programmé" | "brouillon" | "publié";
   deliverableRef?: string; // filename dans content/
 }

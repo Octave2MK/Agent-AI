@@ -258,8 +258,8 @@ export default async function HomePage() {
             <div>
               <div className="bronx-footer-h mb-5">Contact</div>
               <div className="flex flex-col gap-3">
-                <a href="mailto:Nonvi-Efaagency@gmail.com" className="bronx-footer-link">Réserver un call</a>
-                <a href="mailto:Nonvi-Efaagency@gmail.com" className="bronx-footer-link">Nonvi-Efaagency@gmail.com</a>
+                <a href="mailto:moreloctave1@gmail.com" className="bronx-footer-link">Réserver un call</a>
+                <a href="mailto:moreloctave1@gmail.com" className="bronx-footer-link">Nonvi-Efaagency@gmail.com</a>
               </div>
             </div>
             <div>

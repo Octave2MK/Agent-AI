@@ -11,7 +11,7 @@ import { generateProposalPDF } from "@/lib/propositions/proposalPdf";
 export const runtime = "nodejs";
 export const maxDuration = 180;
 
-const INTERNAL = /zeyneb|maxim|Nonvi-Efa|camille|sam/i;
+const INTERNAL = /Melyssa|Octave|Nonvi-Efa|camille|sam/i;
 
 interface Msg { role: string; parts?: { type: string; text?: string }[]; content?: string }
 function convoText(messages: Msg[]): string {

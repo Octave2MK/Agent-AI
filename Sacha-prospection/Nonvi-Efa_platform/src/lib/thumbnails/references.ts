@@ -4,7 +4,7 @@ import type { ReferenceImage } from "../integrations/nanoBanana";
 
 /**
  * Accès au dossier MINIATURE — la banque de photos de référence (le visage de
- * Zeyneb) utilisée pour incruster un vrai visage dans les miniatures YouTube.
+ * Melyssa) utilisée pour incruster un vrai visage dans les miniatures YouTube.
  *
  * Le dossier vit à la RACINE du projet (../MINIATURE par rapport au cwd Next,
  * qui est `Nonvi-Efa-platform/`). On résout de façon défensive : variable d'env

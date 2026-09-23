@@ -117,8 +117,8 @@ export async function MeetingsPreview() {
           const externalParticipant = m.participants.find(
             (p) =>
               !p.toLowerCase().includes("Nonvi-Efaagency") &&
-              !p.toLowerCase().includes("zeyneb") &&
-              !p.toLowerCase().includes("maxim") &&
+              !p.toLowerCase().includes("Melyssa") &&
+              !p.toLowerCase().includes("Octave") &&
               p.includes("@")
           );
           const ctxRelance = `Call: "${m.title}"\nDate: ${m.date}\nParticipants: ${m.participants.join(", ")}\nRésumé: ${m.summary}\nPoints clés: ${m.keyPoints.slice(0, 3).join(" / ")}\nAction items existants: ${m.actionItems.slice(0, 3).join(" / ")}`;

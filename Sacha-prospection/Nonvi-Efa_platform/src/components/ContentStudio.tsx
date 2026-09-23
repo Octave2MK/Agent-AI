@@ -38,7 +38,7 @@ const TEMPLATES: Tmpl[] = [
   { id: "editorial", name: "Éditorial", bg: "#FAF6F4", fg: "#1a1a1a", accent: "#5B4DEE", sub: "#7a7a7a", font: "Georgia,'Times New Roman',serif" },
 ];
 
-// Modèles de référence (images de Zeyneb) servis depuis /public/templates
+// Modèles de référence (images de Melyssa) servis depuis /public/templates
 const REF_TEMPLATES: Record<Platform, { id: string; src: string }[]> = {
   linkedin: ["1", "2", "3", "4", "6", "7", "8", "9", "10", "13", "14", "15", "16"].map((n) => ({ id: `li-${n}`, src: `/templates/li/${n}.png` })),
   twitter: ["1", "2", "3", "4", "6", "7", "8", "9", "10", "13", "14", "15", "16"].map((n) => ({ id: `li-${n}`, src: `/templates/li/${n}.png` })),

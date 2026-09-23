@@ -33,7 +33,7 @@ Rédige une approche de prospection B2B personnalisée pour ce prospect :
 Objectif : proposer un audit gratuit de leurs process (ce qu'une équipe d'agents IA + automatisations pourrait leur faire gagner).
 
 Règles STRICTES :
-- Email : objet ≤ 8 mots, corps ≤ 120 mots, vouvoiement. 1re phrase = un fait PRÉCIS sur eux (leurs avis, leur activité, leur ville — pas de flatterie générique). 1 seul bénéfice concret lié à leur métier. CTA doux : proposer l'audit gratuit ou une question ouverte. Signature "Zeyneb — Nonvi-Efa Agency".
+- Email : objet ≤ 8 mots, corps ≤ 120 mots, vouvoiement. 1re phrase = un fait PRÉCIS sur eux (leurs avis, leur activité, leur ville — pas de flatterie générique). 1 seul bénéfice concret lié à leur métier. CTA doux : proposer l'audit gratuit ou une question ouverte. Signature "Melyssa — Nonvi-Efa Agency".
 - LinkedIn : ≤ 280 caractères, ton direct, pas de "j'espère que vous allez bien".
 - Aucun chiffre inventé, aucun jargon creux.
 

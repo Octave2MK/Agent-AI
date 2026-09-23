@@ -29,20 +29,20 @@ Nonvi-Efa lance **Davide**, son agent IA de prospection, sur son propre marketin
 
 ## 3 angles de contenu
 
-1. **"Le SDR qui ne prend jamais de congés"** (PAS, LinkedIn long, voix Zeyneb)
-2. **"ChatGPT est un outil. Davide est un collègue."** (Hook-Story-Offer, carrousel, voix Maxim)
+1. **"Le SDR qui ne prend jamais de congés"** (PAS, LinkedIn long, voix Melyssa)
+2. **"ChatGPT est un outil. Davide est un collègue."** (Hook-Story-Offer, carrousel, voix Octave)
 3. **"Je vous montre Davide en prod"** (AIDA, vidéo YouTube + 3 shorts)
 
 ## Cadence hebdo
 
-- Zeyneb : 2-3 posts LinkedIn + 1 short YouTube
-- Maxim : 2 posts LinkedIn
+- Melyssa : 2-3 posts LinkedIn + 1 short YouTube
+- Octave : 2 posts LinkedIn
 - Page Nonvi-Efa : 2 posts (long + carrousel)
 
 ## KPIs cibles (4 semaines)
 
 - 80 000+ impressions LinkedIn cumulées
-- 500+ nouveaux followers (Zeyneb + Maxim + page)
+- 500+ nouveaux followers (Melyssa + Octave + page)
 - 50+ DM/commentaires "Davide"
 - 10 RDV Calendly bookés · 5 contrats signés ou pipeline chaud
 
@@ -86,22 +86,22 @@ Nonvi-Efa lance **Davide**, son agent IA de prospection commerciale autonome, su
 
 ## 5. 3 angles de contenu
 
-1. **"Le SDR qui ne prend jamais de congés"** (PAS) — post LinkedIn long, voix Zeyneb
-2. **"ChatGPT est un outil. Davide est un collègue."** (Hook-Story-Offer) — carrousel, voix Maxim
+1. **"Le SDR qui ne prend jamais de congés"** (PAS) — post LinkedIn long, voix Melyssa
+2. **"ChatGPT est un outil. Davide est un collègue."** (Hook-Story-Offer) — carrousel, voix Octave
 3. **"Je vous montre Davide en prod"** (AIDA) — vidéo YouTube + 3 shorts dérivés
 
 ## 6. Cadence hebdomadaire
 
 | Profil | Lun | Mar | Mer | Jeu | Ven |
 |---|---|---|---|---|---|
-| Zeyneb | 1 post | — | 1 short YT | 1 thread | — |
-| Maxim | — | 1 carrousel | — | 1 post | — |
+| Melyssa | 1 post | — | 1 short YT | 1 thread | — |
+| Octave | — | 1 carrousel | — | 1 post | — |
 | Page Nonvi-Efa | 1 post | — | 1 Reel | — | 1 carrousel |
 
 ## 7. KPIs cibles (4 semaines)
 
 - Impressions LinkedIn : 80 000+
-- Nouveaux followers cumul (Zeyneb + Maxim + page) : 500+
+- Nouveaux followers cumul (Melyssa + Octave + page) : 500+
 - DM / commentaires "Davide" : 50+
 - RDV Calendly bookés : 10
 - Contrats signés ou pipeline chaud : 5
@@ -114,7 +114,7 @@ Nonvi-Efa lance **Davide**, son agent IA de prospection commerciale autonome, su
 
   "createur-contenu": `# Post LinkedIn — "Le SDR qui ne prend jamais de congés"
 
-**Framework** : PAS (Problem-Agitate-Solution) · **Voix** : Zeyneb (CTO) · **Format** : LinkedIn long
+**Framework** : PAS (Problem-Agitate-Solution) · **Voix** : Melyssa (CTO) · **Format** : LinkedIn long
 
 ## Hook — variante A (recommandée)
 
@@ -175,7 +175,7 @@ C'est **leur** résultat, documenté. Pas une promesse Nonvi-Efa. Mais ça donne
 
 ## Hypothèses
 
-- Post publié depuis le profil personnel de Zeyneb (CTO Nonvi-Efa)
+- Post publié depuis le profil personnel de Melyssa (CTO Nonvi-Efa)
 - Audience cible : dirigeants PME B2B francophones (vouvoiement maintenu)
 - Créneau optimal suggéré : lundi matin 7h45-8h30`,
 
@@ -227,7 +227,7 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 
   analyste: `# Rapport de performance — Semaine du 13 au 19 avril 2026
 
-**Client** : Nonvi-Efa · **Canaux** : LinkedIn (Zeyneb + Maxim + page) · **Période** : S16 2026
+**Client** : Nonvi-Efa · **Canaux** : LinkedIn (Melyssa + Octave + page) · **Période** : S16 2026
 
 ## En bref (5 lignes)
 
@@ -235,7 +235,7 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 - **Nouveaux followers cumul** : 87 (+19 % vs S15)
 - **Taux d'engagement moyen** : 6,8 % (baseline historique : 4,2 %) — tendance clairement positive
 - **DM entrants "Davide"** : 14 (objectif hebdo : 10) — ✅ objectif dépassé
-- **Alerte** : chute de reach sur le profil de Maxim (-18 %), probablement liée à une semaine sans post
+- **Alerte** : chute de reach sur le profil de Octave (-18 %), probablement liée à une semaine sans post
 
 ## KPIs vs objectifs
 
@@ -248,13 +248,13 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 
 ## Top 3 contenus
 
-1. **"Le SDR qui ne prend jamais de congés"** (Zeyneb, 15/04) — 12 400 impressions, 8,3 % engagement
-2. **Carrousel "ChatGPT vs Davide"** (Maxim, 16/04) — 5 200 impressions, 7,1 % engagement
-3. **Court YouTube "Démo Davide en 60s"** (Zeyneb, 17/04) — 2 800 vues, 42 % rétention
+1. **"Le SDR qui ne prend jamais de congés"** (Melyssa, 15/04) — 12 400 impressions, 8,3 % engagement
+2. **Carrousel "ChatGPT vs Davide"** (Octave, 16/04) — 5 200 impressions, 7,1 % engagement
+3. **Court YouTube "Démo Davide en 60s"** (Melyssa, 17/04) — 2 800 vues, 42 % rétention
 
 ## Flop (à analyser)
 
-- **Post de Maxim du 13/04** ("3 idées fausses sur l'IA") — 340 impressions seulement, 2,1 % engagement. Hypothèse : hook faible + pas de preuve sociale intégrée.
+- **Post de Octave du 13/04** ("3 idées fausses sur l'IA") — 340 impressions seulement, 2,1 % engagement. Hypothèse : hook faible + pas de preuve sociale intégrée.
 
 ## Insights par plateforme
 
@@ -269,15 +269,15 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 
 ## Recommandations (priorité haute → basse)
 
-1. **Re-publier Angle A** sur LinkedIn page Nonvi-Efa (avec crédit Zeyneb) — la reach personnelle est saturée, la page amplifie
+1. **Re-publier Angle A** sur LinkedIn page Nonvi-Efa (avec crédit Melyssa) — la reach personnelle est saturée, la page amplifie
 2. **Écrire le "B side"** du post Angle A : témoignage client développé (Warburg.ai)
-3. **Maxim** : doubler la cadence la semaine prochaine pour compenser la chute
+3. **Octave** : doubler la cadence la semaine prochaine pour compenser la chute
 4. **Tester** un Reel Instagram dérivé du short YouTube (cover Ideogram)
 5. **Produire** un carrousel détaillé du workflow n8n (demande forte dans les DM)
 
 ## Données manquantes
 
-- Pas encore d'exports Calendly pour corréler DM → RDV bookés (Maxim doit remonter le CSV)
+- Pas encore d'exports Calendly pour corréler DM → RDV bookés (Octave doit remonter le CSV)
 - Pas de tracking UTM sur les liens en bio → impossible d'attribuer les leads formulaire
 
 ## Hypothèses
@@ -385,12 +385,12 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 
 - **Julie Lefort (Agence Lefort)** — Prospect chaud, 45 personnes, budget 5-8k€. A vu le post Davide. **→ Action : répondre avec 3 créneaux cette semaine + envoyer deck Davide version immo.**
 - **Sophia Makri (Agence SLM)** — Demande de décalage de call jeudi (enfant malade). **→ Action : proposer 2 créneaux semaine prochaine.**
-- **Maxim** — Review deck masterclass v3 (slides 12-18 + nouveau slide pricing). **→ Action : bloquer 45 min ce week-end.**
+- **Octave** — Review deck masterclass v3 (slides 12-18 + nouveau slide pricing). **→ Action : bloquer 45 min ce week-end.**
 
 ## 🟢 À lire (info)
 
 - **Baptiste Legue (Piscineôpropre)** — Feedback 3 mois Alex (positif, demande 2 évolutions). Pas urgent mais répondre avant vendredi.
-- **Thomas Vuillemin (VCM Conseil)** — Demande tarifs Sophia pour cabinet de 25 personnes. Maxim est sur le dossier.
+- **Thomas Vuillemin (VCM Conseil)** — Demande tarifs Sophia pour cabinet de 25 personnes. Octave est sur le dossier.
 - **Hichem Bouazi (LuxArabia)** — Écart sur facture retainer avril. Pas urgent, mercredi.
 
 ## ⚫ À archiver / ignorer
@@ -430,9 +430,9 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 
 | Action | Responsable | Échéance | Priorité |
 |---|---|---|---|
-| Envoyer pitch deck adapté immobilier | Zeyneb | Vendredi 24/04 | 🔴 |
-| Chiffrage 3 scénarios | Maxim | Lundi 27/04 | 🔴 |
-| Démo live avec DSI Alex Brun | Zeyneb + Maxim | 28/04 à 10h | 🟠 |
+| Envoyer pitch deck adapté immobilier | Melyssa | Vendredi 24/04 | 🔴 |
+| Chiffrage 3 scénarios | Octave | Lundi 27/04 | 🔴 |
+| Démo live avec DSI Alex Brun | Melyssa + Octave | 28/04 à 10h | 🟠 |
 
 **Relance suggérée** : message LinkedIn vendredi 24/04 en envoyant le deck, mentionner le DSI Alex Brun.
 
@@ -444,8 +444,8 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 
 | Action | Responsable | Échéance | Priorité |
 |---|---|---|---|
-| Devis avec option formation (workshops + playbooks) | Maxim | 22/04 | 🔴 |
-| Confirmer Sophia fonctionne en n8n on-premise | Zeyneb | 22/04 | 🔴 |
+| Devis avec option formation (workshops + playbooks) | Octave | 22/04 | 🔴 |
+| Confirmer Sophia fonctionne en n8n on-premise | Melyssa | 22/04 | 🔴 |
 | Relancer si pas de retour | Maxim | 28/04 | 🟠 |
 
 ### 🟡 Call-003 — Sacha Navette (Warburg.ai) — **incident résolu, relation à renforcer**
@@ -456,14 +456,14 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 
 | Action | Responsable | Échéance | Priorité |
 |---|---|---|---|
-| Documenter process change management | Zeyneb | 27/04 | 🔴 |
-| Geste commercial (1 mois offert sur mai) | Maxim | Aujourd'hui | 🟠 |
-| Ajouter alerting automatique sur déploiements | Zeyneb | Cette semaine | 🟠 |
+| Documenter process change management | Melyssa | 27/04 | 🔴 |
+| Geste commercial (1 mois offert sur mai) | Octave | Aujourd'hui | 🟠 |
+| Ajouter alerting automatique sur déploiements | Melyssa | Cette semaine | 🟠 |
 
 ## Calls informatifs (pas d'action urgente)
 
 - **Call-004 — Samuel Redondo (LeLaboStore)** : signé, kick-off 27/04. Contrat envoyé.
-- **Call-005 — 1:1 interne Zeyneb/Maxim** : décision acte = pas de nouveau client avant fin avril (focus plateforme).
+- **Call-005 — 1:1 interne Melyssa/Octave** : décision acte = pas de nouveau client avant fin avril (focus plateforme).
 
 ## Score BANT synthétique des prospects actifs
 
@@ -504,7 +504,7 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 - Pas d'XP à très fort volume (>1k req/j) — mais on est plus orientés valeur que volume chez Nonvi-Efa.
 - Demande 4j/semaine — à discuter (politique équipe actuelle : 5j).
 
-**Recommandation** : entretien technique avec Zeyneb semaine du 27/04. Prévoir exercice n8n + RAG en live-coding. Si le 4j/sem est bloquant pour nous, le dire tôt.
+**Recommandation** : entretien technique avec Melyssa semaine du 27/04. Prévoir exercice n8n + RAG en live-coding. Si le 4j/sem est bloquant pour nous, le dire tôt.
 
 ### 2. Alexandre Mercier — 68/100 🟠
 
@@ -518,7 +518,7 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 - Veut 100 % remote — **incompatible** avec notre culture hybride (2j Paris).
 - Profil très senior : risque de s'ennuyer sur des cas PME.
 
-**Recommandation** : appel découverte 30 min avec Maxim pour tester la flexibilité (salaire + remote). Si les deux sont bloquants : refus poli avec mise en réserve pour un futur poste senior.
+**Recommandation** : appel découverte 30 min avec Octave pour tester la flexibilité (salaire + remote). Si les deux sont bloquants : refus poli avec mise en réserve pour un futur poste senior.
 
 ### 3. Camille Durand — 54/100 🔴
 
@@ -550,7 +550,7 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 > Quels créneaux vous conviennent la semaine du 27 avril ?
 >
 > À bientôt,
-> Zeyneb
+> Melyssa
 
 ### Email pour Camille (refus respectueux)
 
@@ -565,7 +565,7 @@ Vertical portrait editorial poster. Top half: photograph of empty startup desk a
 > Je reste attentive à votre parcours — n'hésitez pas à revenir vers nous dans 12-18 mois, ou si un poste plus junior s'ouvre chez nous.
 >
 > Bonne continuation,
-> Zeyneb
+> Melyssa
 
 ## Hypothèses
 

@@ -13,7 +13,7 @@
  *   - 2026-04-18 · 45 min · demo produit · Verdict : très intéressé
  *
  *   ### To-do
- *   - [ ] Envoyer devis avant 2026-04-25 | Maxim
+ *   - [ ] Envoyer devis avant 2026-04-25 | Octave
  *   - [x] Envoyer case study
  *
  *   ### Relance
@@ -118,7 +118,7 @@ function parseSection(rawHeading: string, rawBody: string): DashboardSection {
     if (todoMatch) {
       const done = /x/i.test(todoMatch[1]);
       const raw = todoMatch[2].trim();
-      // Format étendu : "Texte | assignee" ou "Texte | deadline: 2026-04-25" ou "Texte | Maxim"
+      // Format étendu : "Texte | assignee" ou "Texte | deadline: 2026-04-25" ou "Texte | Octave"
       const parts = raw.split("|").map((s) => s.trim()).filter(Boolean);
       const text = parts[0] || raw;
       let assignee: string | undefined;
